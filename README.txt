@@ -1,0 +1,4 @@
+This is the current proposed design for our app named DoList. 
+We designed a minimalistic and easy to use application for a wide audience. These include students and adults. We want to keep the interface simple for the casual user, but we also want to provide various extra functions and tools to keep power users satisfied.  
+The splash page provides information about the application in a concise but informative manner, with the options to login and start planning at the top center of the page. 
+The main page or the core of the application will have all the relevant information at the center. Adding a task will only require a few clicks.
