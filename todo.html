@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>Do IT now</title>
+		<script src="js/todo.js"></script>
+		<script src="js/note.js"></script>
+		<script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+        <script src="http://code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+	</head>
+	
+	
+	<body>
+		<header>
+			<h1>D O L I S T</h1>
+		</header>
+		<aside id="menu">
+			<h3>Tasks</h3>
+			<section>
+				<ul>
+					<li>Today</li>
+					<li>This Week</li>
+				</ul>
+			</section>
+			<h3>Filter</h3>
+			<section>
+				<ul>
+					<li>Personal</li>
+					<li>Projects</li>
+					<li>Study</li>
+				</ul>
+			</section>
+		</aside>
+		<section id="content">
+			<form id="new-task">
+			<fieldset>
+				<legend id="form-legend">New Task</legend>
+				<p><input id="new-descr" type="text" placeholder="Describe your task..."></p>
+				<p><input id="new-duedate" type="date" placeholder="Due date"></p>
+				<p><select id="new-priority">
+					<option value="0">Normal</option>
+					<option value="3">Urgent</option>
+				</select></p>
+				<button id="new-add" type="button">Confirm</button>
+			</fieldset>
+			</form>
+			<section id="tools">
+				<p>Actions for selected:</p>
+				<button id="delete-task" type="button">Delete</button>
+				<button id="finish-task" type="button">Done</button>
+				<button id="edit-task" type="button">Edit</button>
+			</section>
+			<section id="sort">
+				<p>Sort tasks:</p>
+				<p><select id="sort-select">
+					<option value="0">By due date ascending</option>
+					<option value="1">By due date descending</option>
+					<option value="2">By priority ascending</option>
+					<option value="3">By priority descending</option>
+				</select></p>
+			</section>
+			<section id="tasks">
+				<h2>Tasks</h2>
+				<section id="task-list">
+				</section>
+			</section>
+		</section>
+		<footer>
+		Copyright
+		</footer>
+	</body>
+	
+	
+</html>
