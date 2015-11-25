@@ -1,0 +1,89 @@
+﻿A2
+
+
+1.
+
+
+Todo item with a due date and an importance rating:
+
+
+In order to create the Todo item, there must be an input field with the text  'Describe your task'. Furthermore there must be an input field, in which the date can be specified. 
+Next there must be a button which can be set on the fields 'normal' and 'urgent'.
+At last there must be a button to confirm the Todo item. 
+
+
+If one of the input fields is left blank, a warning shall appear telling the user to 
+fill in the corresponding fields. 
+
+
+
+
+Delete, edit and set the status to "done":
+
+
+In order to perform any of the actions above with a Todo item, 
+it must be able to select the Todo item from a list. 
+The list of Todo items are shown at the bottom of the page.
+The items will be selectable through a checkbox that corresponds 
+with one Todo item.
+
+
+There shall be three buttons, corresponding with the three actions 
+that can be clicked. All selected Todo items will perform the action.
+If no item is selected a warning shall appear telling the user to select
+an item.
+
+
+
+
+Sort the items according to due date / importance:
+
+
+In order to perform this action there shall be a button which can be set on the 
+fields 'By due date ascending', 'By due date descending', 'By priority ascending', 'By priority descending'. After adjusting the field of the button the Todo items are sorted in the way specified.
+
+
+
+
+To model the todo item we shall create a JavaScript file called Task(),
+ in which a Todo item is defined.
+
+
+function Task()
+	-note
+-date
+-priority
+-id
+-Boolean done = false
+	
+
+And the prototype of task.
+
+
+
+
+Prototype
+	-getTask()
+-delete()
+-finished()
+-update()
+-getNote(), setNote()
+-getDate(), setDate()
+-getPriority(), setPriority()
+	
+
+Now we need a JavaScript file for the Todo page that makes the page interactive.
+
+
+First we need a function that links buttons with functions through events. 
+Then JavaScript functions to add,sort, edit, delete and finish are needed. 
+
+
+
+
+2.
+
+
+By choosing the design above, we aim our JavaScript to be OOP.
+By making a separate JavaScript file 'Task' we emulate a class task.
+The function Task() is like a constructor, it defines which attributes and those only must be set. By prototyping the various methods above we have emulated getters and setters for the attributes.
