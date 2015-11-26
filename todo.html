@@ -5,6 +5,7 @@
 		<title>Do IT now</title>
 		<script src="js/todo.js"></script>
 		<script src="js/note.js"></script>
+		<!--link href="css/todo.css" rel="stylesheet" type="text/css"-->
 		<script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
         <script src="http://code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
 	</head>
@@ -14,13 +15,16 @@
 		<header>
 			<h1>D O L I S T</h1>
 		</header>
+		<main>
 		<aside id="menu">
 			<h3>Tasks</h3>
 			<section>
-				<ul>
-					<li>Today</li>
-					<li>This Week</li>
-				</ul>
+				<select id="filter-select">
+					<option value="0">All</option>
+					<option value="1">Today</option>
+					<option value="2">Urgent</option>
+					<option value="3">Normal</option>
+				</select>
 			</section>
 			<h3>Filter</h3>
 			<section>
@@ -32,23 +36,23 @@
 			</section>
 		</aside>
 		<section id="content">
-			<form id="new-task">
-			<fieldset>
-				<legend id="form-legend">New Task</legend>
-				<p><input id="new-descr" type="text" placeholder="Describe your task..."></p>
-				<p><input id="new-duedate" type="date" placeholder="Due date"></p>
-				<p><select id="new-priority">
-					<option value="0">Normal</option>
-					<option value="3">Urgent</option>
-				</select></p>
-				<button id="new-add" type="button">Confirm</button>
-			</fieldset>
+			<form id="new" autocomplete="off">
+				<fieldset>
+					<legend id="form-legend">New Task</legend>
+					<br><input id="new-descr" type="text" placeholder="Describe your task...">
+					<input id="new-duedate" type="date" placeholder="Due date">
+					<select id="new-priority">
+						<option value="0">Normal</option>
+						<option value="3">Urgent</option>
+					</select></br>
+					<button id="new-confirm" type="button">Confirm</button>
+				</fieldset>
 			</form>
+
 			<section id="tools">
 				<p>Actions for selected:</p>
 				<button id="delete-task" type="button">Delete</button>
 				<button id="finish-task" type="button">Done</button>
-				<button id="edit-task" type="button">Edit</button>
 			</section>
 			<section id="sort">
 				<p>Sort tasks:</p>
@@ -60,11 +64,26 @@
 				</select></p>
 			</section>
 			<section id="tasks">
+				<button id="select-all" type="button">Select All</button>
+				<button id="select-none" type="button">Select None</button>
+				<form id="edit">
+					<fieldset>
+						<legend id="form-legend">Edit Task</legend>
+						<br><input id="edit-descr" type="text" placeholder="Describe your task..."></br>
+						<br><input id="edit-duedate" type="date" placeholder="Due date"></br>
+						<br><select id="edit-priority">
+							<option value="0">Normal</option>
+							<option value="3">Urgent</option>
+						</select></br>
+						<p><button id="edit-confirm" type="button">Confirm</button></p>
+					</fieldset>
+				</form>
 				<h2>Tasks</h2>
 				<section id="task-list">
 				</section>
 			</section>
 		</section>
+		</main>
 		<footer>
 		Copyright
 		</footer>
