@@ -96,6 +96,23 @@ function editTask(id) {
 	clearTask();
 }
 
+function getTaskList() {
+	$.getJSON('/tasklist', function(res) {
+		console.log(res);
+		var list = res.list;
+	});
+}
+
+
+function createTask(name, date, priority) {
+	var data = { name:name, date:date, priority:priority };
+	$.post('/add', data, function(res) {
+		console.log(res);
+		var task = new Task(name, date, priority, res.id);
+		list[res.id] = task;
+	}, 'json');
+}
+
 function addTask() {
 	if(($('#new-descr').val() == '')) {
         alert( 'Please enter a description of the task!' );
@@ -104,12 +121,14 @@ function addTask() {
 		var name = $('#new-descr').val();
 		var date = $('#new-duedate').val();
 		var priority = $('#new-priority').val();
-		var task = new Task(name, date, priority, counter);
-		task.add($('#task-list'));
-		list[counter] = task;
-		counter = counter + 1;
+		createTask(name, date, priority);
+//		var task = new Task(name, date, priority, counter);
+//		task.add($('#task-list'));
+
+//		list[counter] = task;
+//		counter = counter + 1;
 	}
-	sortTasks();
+	filterTasks();
 	$('#new-descr').val('');
 	$('#new-duedate').val(new Date().toDateInputValue());
 	$('#new-priority').val(0);	

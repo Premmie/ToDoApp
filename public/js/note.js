@@ -25,6 +25,8 @@ Task.prototype.getDate = function () {return this.date;}
 Task.prototype.setDate = function (date) {this.date = date;}
 Task.prototype.getPriority = function () {return this.priority;}
 Task.prototype.setPriority = function (priority) {this.priority = priority;}
+Task.prototype.toJSON = function () { JSON.stringify(this); }
+Task.prototype.toJavaScript = function (string) { JSON.parse(string) };
 
 function priority(p) {
 	if (p == 0) {
