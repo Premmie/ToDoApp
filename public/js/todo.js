@@ -1,41 +1,46 @@
-var list = [];
-var counter = 0;
-var editing
+var list = {};
+var editing;
 
-window.onload = function () {
+window.onload = function() {
+	setup();
+	var $edit = $('#edit');
+	var $body = $('body');
 	$('#new').submit(function(event) {
 		addTask();
 		event.preventDefault();
 	});
-	$('#edit').submit(function(event) {
+	$edit.submit(function(event) {
 		editTask(editing);
 		event.preventDefault();
-	});	
-	$('#edit').hide();
+	});
+	$edit.hide();
 	$('#new-duedate').val(new Date().toDateInputValue());
 	$('#new-confirm').click(function() { addTask(); });
 	$('#edit-confirm').click(function() { editTask(editing); });
-	$('#delete-task').click(function() { deleteTask(); });
-	$('#finish-task').click(function() { finishTask(); });
-	$('#select-all').click(function() { selectAll(); });
-	$('#select-none').click(function() { selectNone(); });
+	$('#apply-confirm').click(function() { applyAction(); });
 	$('#sort-select').change(function() { sortTasks(); });
 	$('#filter-select').change(function() { filterTasks(); });
-	$('body').on('mouseenter', '.task', function(event) {
-		$(this).find('.task-details').show();
-	});
-	$('body').on('mouseleave', '.task', function(event) {
-		$(this).find('.task-details').hide();
-	});
-	$('body').on('click', '.task', function(event) {
-		var id = getId($(this).attr('id'));
+	$('.select-all').change(function(event) { selectAll($('.select-all').prop('checked')); });
+	$body.on('click', '.task', function(event) {
+		var task = $(this);
+		var id = getId(task.attr('id'));
+		task.attr('editing', true);
 		loadTask(id);
 	});
+};
+
+function applyAction() {
+	var action = $('#action-select').val();
+	if (action == 0) {
+		deleteTask();
+	} else {
+		finishTask();
+	}
 }
 
 function filterTasks() {
 	$('#task-list').empty();
-	filter = $('#filter-select').val();
+	var filter = $('#filter-select').val();
 	if (filter == 0) {
 		$.each(list, function(id, task) {
 			task.add($('#task-list'));
@@ -63,12 +68,8 @@ function filterTasks() {
 	sortTasks();
 }
 
-function selectAll() {
-	$('input:checkbox').prop('checked', true);
-}
-
-function selectNone() {
-	$('input:checkbox').prop('checked', false);
+function selectAll(value) {
+	$('input:checkbox:not(.select-all)').prop('checked', value);
 }
 
 function clearTask() {
@@ -96,20 +97,25 @@ function editTask(id) {
 	clearTask();
 }
 
+function setup() {
+	getTaskList();
+}
+
 function getTaskList() {
 	$.getJSON('/tasklist', function(res) {
-		console.log(res);
-		var list = res.list;
+		$.each(res, function(id, task) {
+			list[id] = new Task(task.note, task.date, task.priority, task.id);
+		});
+		filterTasks();
 	});
 }
 
-
-function createTask(name, date, priority) {
-	var data = { name:name, date:date, priority:priority };
+function createTask(note, date, priority) {
+	var data = { note:note, date:date, priority:priority };
 	$.post('/add', data, function(res) {
-		console.log(res);
-		var task = new Task(name, date, priority, res.id);
+		var task = new Task(res.note, res.date, res.priority, res.id);
 		list[res.id] = task;
+		filterTasks();
 	}, 'json');
 }
 
@@ -118,17 +124,11 @@ function addTask() {
         alert( 'Please enter a description of the task!' );
 		return false;
 	} else {
-		var name = $('#new-descr').val();
+		var note = $('#new-descr').val();
 		var date = $('#new-duedate').val();
 		var priority = $('#new-priority').val();
-		createTask(name, date, priority);
-//		var task = new Task(name, date, priority, counter);
-//		task.add($('#task-list'));
-
-//		list[counter] = task;
-//		counter = counter + 1;
+		createTask(note, date, priority);
 	}
-	filterTasks();
 	$('#new-descr').val('');
 	$('#new-duedate').val(new Date().toDateInputValue());
 	$('#new-priority').val(0);	
@@ -136,22 +136,18 @@ function addTask() {
 
 function sortTasks() {
 	if ($('#sort-select').val() == 0) {
-		console.log(0);
 		$('#task-list').find('.task').sort(function(a, b) {
 			return $(a).attr('date') < ($(b).attr('date'));
 		}).appendTo($('#task-list'));
 	} else if ($('#sort-select').val() == 1) {
-		console.log(1);
 		$('#task-list').find('.task').sort(function(a, b) {
 			return $(a).attr('date') > ($(b).attr('date'));
 		}).appendTo($('#task-list'));
 	} else if ($('#sort-select').val() == 2) {
-		console.log(2);
 		$('#task-list').find('.task').sort(function(a, b) {
 			return $(a).attr('priority') > ($(b).attr('priority'));
 		}).appendTo($('#task-list'));
 	} else if ($('#sort-select').val() == 3) {
-		console.log(2);
 		$('#task-list').find('.task').sort(function(a, b) {
 			return $(a).attr('priority') < ($(b).attr('priority'));
 		}).appendTo($('#task-list'));
@@ -159,8 +155,8 @@ function sortTasks() {
 }
 
 function deleteTask() {
-    if( $('input:checkbox:checked').length > 0 ) {
-        $.each( $('input:checkbox:checked'), function (index, value) {
+    if( $('input:checkbox:checked:not(.select-all)').length > 0 ) {
+        $.each( $('input:checkbox:checked:not(.select-all)'), function (index, value) {
             var id = getId($(value).parent().attr('id'));
             var task = list[id];
 			if (id == editing) {
@@ -175,8 +171,8 @@ function deleteTask() {
 }
 
 function finishTask() {
-    if( $('input:checkbox:checked').length > 0 ) {
-        $.each( $( 'input:checkbox:checked' ), function (index, value) {
+    if( $('input:checkbox:checked:not(.select-all)').length > 0 ) {
+        $.each($('input:checkbox:checked:not(.select-all)'), function(index, value) {
             var id = getId($(value).parent().attr('id'));
             var task = list[id];
             task.finished();

@@ -8,7 +8,7 @@ app.use(bodyParser.urlencoded({
 	extended: true
 })); 
 
-var list = [];
+var list = {};
 var counter = 0;
 
 app.use(express.static('public'));
@@ -19,11 +19,11 @@ app.get('/', function(req, res) {
 
 app.get('/tasklist', function(req, res) {
 	res.json(list);
-	res.end;
+	res.end();
 });
 
 app.post('/add', function(req, res) {
-	var task = new Task(req.body.name, req.body.date, req.body.priority, counter);
+	var task = new Task(req.body.note, req.body.date, req.body.priority, counter);
 	list[counter] = task;
 	console.log(task);
 	res.json(task);
@@ -31,12 +31,11 @@ app.post('/add', function(req, res) {
 	counter++
 });
 
-var server = app.listen(8081, function() {
+var server = app.listen(1010, function() {
 
-  var host = server.address().address
-  var port = server.address().port
+  var port = server.address().port;
 
-  console.log("DoList app listening at http://%s:%s", host, port)
+  console.log("DoList app listening at http://localhost:" + port + "/todo.html")
 
 });
 
@@ -58,5 +57,5 @@ Task.prototype.getDate = function () {return this.date;}
 Task.prototype.setDate = function (date) {this.date = date;}
 Task.prototype.getPriority = function () {return this.priority;}
 Task.prototype.setPriority = function (priority) {this.priority = priority;}
-Task.prototype.toJSON = function () { JSON.stringify(this); }
+//Task.prototype.toJSON = function () { JSON.stringify(this); }
 
