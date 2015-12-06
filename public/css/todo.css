@@ -32,7 +32,7 @@ body {
 	overflow-y: auto;
 }
 
-#new {
+form {
 	background-color: whitesmoke;
 	padding: 20px;
 }
@@ -54,35 +54,35 @@ button:active {
 	background-color: lightgrey;
 }
 
-#edit button {
-	outline: 0;
-	border: 1px solid white;
-	border-radius: 1px;
-	text-align: center;
-	color: white;
-	background-color: transparent;
-	padding: 4px 16px 4px 16px;
-}
-
-
-
-#edit-form {
-	border: 1px solid white;
-	border-radius: 1px;
-	padding: 0px 20px 0px 20px;
-}
 
 #sort-select{
 	float:right;
 }
 
-#task-list {
-	margin-bottom: 2px;
+#tasks {
+    display: block;
+    vertical-align: middle;
 }
 
 .tools {
-	padding: 8px;
-	padding-left: 4px;
+    display: table;
+    vertical-align: inherit;
+    height: 48px;
+    width: 100%;
+}
+
+.tools div {
+    display: table-cell;
+    vertical-align: inherit;
+    padding: 8px;
+}
+
+.tools div:last-child {
+    width: 100%;
+}
+
+.select-all {
+    margin: 0;
 }
 
 .side-menu {
@@ -105,85 +105,104 @@ select:focus {
 	outline: none;
 }
 
-#new input[type="text"] {
+form input[type="text"] {
 	width:100%;
 	border-bottom: 1px solid lightgray;
 	margin-bottom: 8px;
 }
 
-#new input[type="date"] {
+form input[type="date"] {
 	background:transparent;
 	border-bottom: 1px solid transparent;
 }
 
-#new input[type="date"]:hover {
+form input[type="date"]:hover {
 	background:white;
 	border-bottom: 1px solid lightgray;
 }
 
-#new select {
+form select {
 	background:transparent;
 	border:none;
 	border-bottom: 1px solid transparent;
 	padding:4px;
 }
 
-#new select:hover {
+form select:hover {
 	background:white;
 	border:none;
 	border-bottom: 1px solid lightgray;
 	padding:4px;
+}
+
+#task-list {
+    display: table-row-group;
+    vertical-align: middle;
+    margin-bottom: 2px;
 }
 
 .task {
 	background-color: whitesmoke;
+    display:table-row;
+    height: 48px;
 	padding: 8px;
-	height: 100%;
-	margin-bottom: 2px;
+    vertical-align: inherit;
+    width: 100%;
 }
 
-.task-details {
-	overflow-x: hidden;
-	display:block;
-	font-size: 14px;
+.task:hover:not(.selected) {
+    background-color: lightgray;
 }
 
-.task:hover {
-	background-color: lightgrey;
+.task-select, .task-details {
+    border-bottom: 1px solid white;
+    display: table-cell;
+    vertical-align: inherit;
+    padding: 8px;
+}
+
+.task-select, .task-priority {
+    white-space:nowrap;
+    text-align: center;
+}
+
+.task-date {
+    white-space:nowrap;
+    text-align: right;
 }
 
 .task-select {
-	float: left;
-	margin: 0px;
-	margin-right: 4px;
+    border-right: 1px solid white;
 }
 
-.task-details input[type="text"] {
-	background:transparent;
-	border-bottom: 1px solid transparent;
-	width: 100%;
-	margin-bottom:4px;
+.task-select input {
+    margin: 0;
 }
 
-.task input[type="date"] {
-	background:transparent;
-	border-bottom: 1px solid transparent;
-	font-size:10px;
+.task-details {
+    font-size: 14px;
 }
 
-
-.task input[type="text"]:focus {
-	background:white;
-	border-bottom: 1px solid lightgray;
+.task-details:hover {
+    cursor: pointer;
 }
 
-/* .task input[type="text"]:hover {
-	border-bottom: 1px solid lightgray;
+.task-note {
+    width: 100%;
 }
 
-.task input[type="date"]:hover {
-	border-bottom: 1px solid lightgray;
-}*/
+.task[priority="3"] .task-priority::after {
+    content: url(img/star.png);
+}
+
+.task[done="true"] .task-priority::after {
+    content: url(img/check.png);
+    title: 'Task completed';
+}
+
+.task.overdue .task-priority::after {
+    content: url(img/clock.png);
+}
 
 input[type="text"], input[type="date"] {
 	border:none;
@@ -196,7 +215,7 @@ input[type="text"]:focus, input[type="date"]:focus {
 	outline: none;
 }
 
-#new-confirm {
+form button {
 	float:right;
 }
 
@@ -222,4 +241,7 @@ footer {
 	clear: both;
 }
 
-
+.selected {
+    background-color: darkslategray;
+    color: white;
+}
