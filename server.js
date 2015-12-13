@@ -14,11 +14,12 @@ var counter = 0;
 app.use(express.static('public'));
 
 app.get('/', function(req, res) {
-   res.send('Hello World');
+    res.redirect('/splash.html');
+    res.end;
 });
 
 app.get('/tasklist', function(req, res) {
-    console.log('Returning: ' + JSON.stringify(list))
+    console.log('Returning: ' + JSON.stringify(list));
 	res.json(list);
 	res.end();
 });
@@ -59,8 +60,8 @@ app.post('/remove', function(req, res) {
 
 
 var server = app.listen(1010, function() {
-  var port = server.address().port;
-  console.log("DoList app listening at http://localhost:" + port + "/todo.html");
+    var port = server.address().port;
+  console.log("DoList app listening at http://localhost:" + port);
 });
 
 // server task item
