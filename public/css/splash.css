@@ -21,6 +21,10 @@ body {
     position: relative;
 }
 
+header {
+    font-weight: bold;
+}
+
 main {
     background-color: white;
     width:100%;
@@ -29,7 +33,6 @@ main {
 
 ul.menu-bar {
     background-color: white;
-    font-weight: bold;
     display: block;
     width: 100%;
     height: 40px;
@@ -45,6 +48,17 @@ ul.menu-bar {
     text-align: center;
     vertical-align: middle;
     line-height: 40px;
+}
+
+footer .menu-bar {
+    display: table;
+    table-layout: fixed;
+}
+
+footer .menu-item {
+    float: none;
+    display: table-cell;
+    width: 100%;
 }
 
 a {
@@ -82,6 +96,13 @@ a:hover:not(.button) {
 .content2 {
     color: grey;
     text-align: center;
+    padding: 0 100px 0 100px;
+}
+
+.content3 {
+    background-color: white;
+    color: grey;
+    text-align: Right;
     padding: 0 100px 0 100px;
 }
 
