@@ -60,6 +60,14 @@ function loadEdit() {
     }
 }
 
+function deleteTask(id) {
+    var data = {id: id};
+    $.post('/delete', data, function(res) {
+        list[res].delete();
+        delete list[res];
+    }, 'json');
+}
+
 function createTask(note, date, priority) {
     var data = { note:note, date:date, priority:priority };
     $.post('/add', data, function(res) {
@@ -88,13 +96,6 @@ function updateTask(note, date, priority, done, id) {
             task.update();
         }
     }, 'json');
-}
-
-function deleteTask(id) {
-    $.post('/remove', {id: id}, 'json');
-    list[id].delete();
-    delete list[id];
-    console.log('Item deleted');
 }
 
 function editTask() {

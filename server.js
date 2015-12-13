@@ -15,7 +15,18 @@ app.use(express.static('public'));
 
 app.get('/', function(req, res) {
     res.redirect('/splash.html');
-    res.end;
+    res.end();
+});
+
+app.post('/delete', function(req, res) {
+    var id = req.body.id;
+    var task = list[id];
+    if (task != undefined) {
+        delete list[id];
+        console.log('Deleted: Task ' + id);
+    }
+    res.json(id);
+    res.end();
 });
 
 app.get('/tasklist', function(req, res) {
@@ -27,7 +38,7 @@ app.get('/tasklist', function(req, res) {
 app.post('/add', function(req, res) {
 	var task = new Task(req.body.note, req.body.date, req.body.priority, counter);
 	list[counter++] = task;
-	console.log(task);
+	console.log('Created: ' + JSON.stringify(task));
 	res.json(task);
 	res.end();
 });
@@ -45,16 +56,6 @@ app.post('/update', function(req, res) {
         res.json(task);
     }
     console.log('Updated: ' + JSON.stringify(task));
-    res.end();
-});
-
-app.post('/remove', function(req, res) {
-    var id = req.body.id;
-    var task = list[id];
-    if (task != undefined) {
-        delete list[id];
-        console.log('Deleted: ' + id);
-    }
     res.end();
 });
 
