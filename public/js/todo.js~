@@ -167,7 +167,7 @@ function filterTasks() {
     if (filter == 0) {
         $.each(list, function(id, task) {
             task.add($('#task-list'));
-            if (task.getDate() < new Date()) {
+            if (task.getDate() < new Date() {
                 $('#task' + task.getId()).addClass('overdue');
             }
         });

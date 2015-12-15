@@ -249,15 +249,14 @@ form select:hover {
     content: url(img/star.png);
 }
 
-.task.overdue .task-priority::after {
-    content: url(img/clock.png);
-}
-
 .task[done="true"] .task-priority::after {
     content: url(img/check.png);
     title: 'Task completed';
 }
 
+.task.overdue .task-priority::after {
+    content: url(img/clock.png);
+}
 
 input[type="text"], input[type="date"] {
 	border:none;
