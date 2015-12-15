@@ -1,15 +1,23 @@
 var express = require('express');
+var mysql = require('mysql');
 var url = require('url');
 var http = require('http');
 var bodyParser = require('body-parser');
 var app = express();
-app.use(bodyParser.json());       // to support JSON-encoded bodies
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
 	extended: true
 })); 
 
 var list = {};
 var counter = 0;
+
+var connection = mysql.createConnection({
+	host: 'localhost',
+	user: 'root',
+	password: 'webdata',
+	databse: 'todo'
+});
 
 app.use(express.static('public'));
 
