@@ -1,0 +1,280 @@
+2.1 List all ToDoLists belonging to given User.
+
+SELECT ToDoList.* 
+FROM ToDoList JOIN User ON(ToDoList.Owner=User.Id) 
+WHERE User.id=1;
+
++----+--------+---------------------+-------+----------+
+| Id | Name   | CreationDate        | Owner | IsPublic |
++----+--------+---------------------+-------+----------+
+|  1 | School | 2013-01-25 12:35:00 |     1 |        0 |
+|  2 | Work   | 2014-02-14 00:00:00 |     1 |        0 |
++----+--------+---------------------+-------+----------+
+2 rows in set (0.00 sec)
+
+
+2.2 List ToDoItems belonging to given ToDoList with paging.
+
+SELECT ToDoItem.* 
+FROM ToDoItem JOIN ToDoList ON(ToDoItem.ToDoListId=ToDoList.Id) 
+WHERE ToDoList.Id=1;
+
++----+------------------------------+------------------------------------------------------------------+---------------------+---------------------+-----------+---------------------+----------+------------+------------+----+--------+---------------------+-------+----------+
+| Id | Title                        | Text                                                             | CreationDate        | DueDate             | Completed | CompletionDate      | Priority | ToDoListID | ParentToDo | Id | Name   | CreationDate        | Owner | IsPublic |
++----+------------------------------+------------------------------------------------------------------+---------------------+---------------------+-----------+---------------------+----------+------------+------------+----+--------+---------------------+-------+----------+
+|  1 | Do assignment 1              | Finish assignment one before the assessment time                 | 2014-11-17 12:56:12 | 2014-11-20 23:59:59 |         1 | 2014-11-20 23:55:15 |        3 |          1 |       NULL |  1 | School | 2013-01-25 12:35:00 |     1 |        0 |
+|  2 | Do telnet exercises          | Do all telnet exercises and understand what is happening and why | 2014-11-18 22:51:48 | 2014-11-20 23:59:59 |         1 | 2014-11-18 13:35:48 |        3 |          1 |          1 |  1 | School | 2013-01-25 12:35:00 |     1 |        0 |
+|  3 | Do HTML part of assignment 1 | Do the html part of the first assignment: code and design        | 2014-11-18 15:26:58 | 2014-11-20 23:59:59 |         1 | 2014-11-19 15:59:36 |        3 |          1 |          1 |  1 | School | 2013-01-25 12:35:00 |     1 |        0 |
+| 17 | Assignment 2                 | Fix all parts of assignment 2 for webdata                        | 2014-11-25 12:22:45 | 2014-11-27 15:45:00 |         1 | 2014-11-27 12:52:33 |        3 |          1 |       NULL |  1 | School | 2013-01-25 12:35:00 |     1 |        0 |
+| 18 | First part of 2              | Do the first part of the second assignment                       | 2014-11-25 12:23:15 | 2014-11-27 15:45:00 |         1 | 2014-11-26 09:12:52 |        3 |          1 |         17 |  1 | School | 2013-01-25 12:35:00 |     1 |        0 |
+| 19 | Second part of 2             | Do the second part of the second assignment                      | 2014-11-25 12:25:55 | 2014-11-27 15:45:00 |         1 | 2014-11-27 12:52:33 |        3 |          1 |         17 |  1 | School | 2013-01-25 12:35:00 |     1 |        0 |
+| 20 | Learn for Midterm            | For webdata midterm                                              | 2014-12-01 14:55:32 | 2014-12-09 09:00:00 |         1 | 2014-11-08 22:55:15 |        1 |          1 |       NULL |  1 | School | 2013-01-25 12:35:00 |     1 |        0 |
+| 22 | Assigment 3 and 4            | For webdata                                                      | 2014-12-02 16:11:25 | 2014-12-18 12:00:00 |         0 | NULL                |        3 |          1 |       NULL |  1 | School | 2013-01-25 12:35:00 |     1 |        0 |
+| 23 | Assignemnt 3 part 1          | part 1 for A3                                                    | 2014-12-02 16:12:11 | 2014-12-18 12:00:00 |         1 | 2014-12-14 12:55:34 |        3 |          1 |         22 |  1 | School | 2013-01-25 12:35:00 |     1 |        0 |
+| 24 | Assignment 3 part 2          | part 2 for A3                                                    | 2014-12-02 16:12:55 | 2014-12-18 12:00:00 |         1 | 2014-12-14 18:32:56 |        3 |          1 |         22 |  1 | School | 2013-01-25 12:35:00 |     1 |        0 |
+| 25 | Assignment 4 part 1          | part 1 for A4                                                    | 2014-12-02 16:14:25 | 2014-12-18 12:00:00 |         1 | 2014-12-16 13:25:56 |        3 |          1 |         22 |  1 | School | 2013-01-25 12:35:00 |     1 |        0 |
+| 26 | Assignment 4 part 2          | part 2 for A4                                                    | 2014-12-02 16:15:45 | 2014-12-18 12:00:00 |         0 | NULL                |        3 |          1 |         22 |  1 | School | 2013-01-25 12:35:00 |     1 |        0 |
+| 27 | Create database for students | So they can practice with the assignments                        | 2014-12-12 15:48:55 | 2014-12-16 23:59:59 |         1 | 2014-12-16 15:22:45 |        3 |          1 |       NULL |  1 | School | 2013-01-25 12:35:00 |     1 |        0 |
++----+------------------------------+------------------------------------------------------------------+---------------------+---------------------+-----------+---------------------+----------+------------+------------+----+--------+---------------------+-------+----------+
+13 rows in set (0.00 sec)
+
+2.3 List ToDoItems belonging to given ToDoList with paging
+
+SELECT ToDoItem.* 
+FROM ToDoItem JOIN ToDoList ON(ToDoItem.ToDoListId=ToDoList.Id) 
+WHERE ToDoList.Id=1 LIMIT 5, 10;
+
++----+------------------------------+---------------------------------------------+---------------------+---------------------+-----------+---------------------+----------+------------+------------+
+| Id | Title                        | Text                                        | CreationDate        | DueDate             | Completed | CompletionDate      | Priority | ToDoListID | ParentToDo |
++----+------------------------------+---------------------------------------------+---------------------+---------------------+-----------+---------------------+----------+------------+------------+
+| 19 | Second part of 2             | Do the second part of the second assignment | 2014-11-25 12:25:55 | 2014-11-27 15:45:00 |         1 | 2014-11-27 12:52:33 |        3 |          1 |         17 |
+| 20 | Learn for Midterm            | For webdata midterm                         | 2014-12-01 14:55:32 | 2014-12-09 09:00:00 |         1 | 2014-11-08 22:55:15 |        1 |          1 |       NULL |
+| 22 | Assigment 3 and 4            | For webdata                                 | 2014-12-02 16:11:25 | 2014-12-18 12:00:00 |         0 | NULL                |        3 |          1 |       NULL |
+| 23 | Assignemnt 3 part 1          | part 1 for A3                               | 2014-12-02 16:12:11 | 2014-12-18 12:00:00 |         1 | 2014-12-14 12:55:34 |        3 |          1 |         22 |
+| 24 | Assignment 3 part 2          | part 2 for A3                               | 2014-12-02 16:12:55 | 2014-12-18 12:00:00 |         1 | 2014-12-14 18:32:56 |        3 |          1 |         22 |
+| 25 | Assignment 4 part 1          | part 1 for A4                               | 2014-12-02 16:14:25 | 2014-12-18 12:00:00 |         1 | 2014-12-16 13:25:56 |        3 |          1 |         22 |
+| 26 | Assignment 4 part 2          | part 2 for A4                               | 2014-12-02 16:15:45 | 2014-12-18 12:00:00 |         0 | NULL                |        3 |          1 |         22 |
+| 27 | Create database for students | So they can practice with the assignments   | 2014-12-12 15:48:55 | 2014-12-16 23:59:59 |         1 | 2014-12-16 15:22:45 |        3 |          1 |       NULL |
++----+------------------------------+---------------------------------------------+---------------------+---------------------+-----------+---------------------+----------+------------+------------+
+8 rows in set (0.00 sec)
+
+
+2.4.1 Filter by date
+
+SELECT ToDoItem.* 
+FROM ToDoItem JOIN ToDoList ON(ToDoItem.ToDoListId=ToDoList.Id) 
+WHERE ToDoList.Id=1 AND ToDoItem.CreationDate BETWEEN '2014-12-02 12:35:00' AND '2014-12-12 12:35:00';
+
++----+----------------------+---------------+---------------------+---------------------+-----------+---------------------+----------+------------+------------+
+| Id | Title                | Text          | CreationDate        | DueDate             | Completed | CompletionDate      | Priority | ToDoListID | ParentToDo |
++----+----------------------+---------------+---------------------+---------------------+-----------+---------------------+----------+------------+------------+
+| 22 | Assigment 3 and 4    | For webdata   | 2014-12-02 16:11:25 | 2014-12-18 12:00:00 |         0 | NULL                |        3 |          1 |       NULL |
+| 23 | Assignemnt 3 part 1  | part 1 for A3 | 2014-12-02 16:12:11 | 2014-12-18 12:00:00 |         1 | 2014-12-14 12:55:34 |        3 |          1 |         22 |
+| 24 | Assignment 3 part 2  | part 2 for A3 | 2014-12-02 16:12:55 | 2014-12-18 12:00:00 |         1 | 2014-12-14 18:32:56 |        3 |          1 |         22 |
+| 25 | Assignment 4 part 1  | part 1 for A4 | 2014-12-02 16:14:25 | 2014-12-18 12:00:00 |         1 | 2014-12-16 13:25:56 |        3 |          1 |         22 |
+| 26 | Assignment 4 part 2  | part 2 for A4 | 2014-12-02 16:15:45 | 2014-12-18 12:00:00 |         0 | NULL                |        3 |          1 |         22 |
++----+----------------------+---------------+---------------------+---------------------+-----------+---------------------+----------+------------+------------+
+5 rows in set (0.00 sec)
+
+
+2.4.2 Filter by priority
+
+SELECT ToDoItem.* 
+FROM ToDoItem JOIN ToDoList ON(ToDoItem.ToDoListId=ToDoList.Id) 
+WHERE ToDoList.Id=1 AND ToDoItem.Priority=1;
+
++----+-------------------+---------------------+---------------------+---------------------+-----------+---------------------+----------+------------+------------+
+| Id | Title             | Text                | CreationDate        | DueDate             | Completed | CompletionDate      | Priority | ToDoListID | ParentToDo |
++----+-------------------+---------------------+---------------------+---------------------+-----------+---------------------+----------+------------+------------+
+| 20 | Learn for Midterm | For webdata midterm | 2014-12-01 14:55:32 | 2014-12-09 09:00:00 |         1 | 2014-11-08 22:55:15 |        1 |          1 |       NULL |
++----+-------------------+---------------------+---------------------+---------------------+-----------+---------------------+----------+------------+------------+
+1 row in set (0.00 sec)
+
+
+2.4.3 Filter by completion
+
+SELECT ToDoItem.* FROM ToDoItem JOIN ToDoList ON(ToDoItem.ToDoListId=ToDoList.Id) WHERE ToDoList.Id=1 AND ToDoItem.Completed=0;
+
++----+---------------------+---------------+---------------------+---------------------+-----------+----------------+----------+------------+------------+
+| Id | Title               | Text          | CreationDate        | DueDate             | Completed | CompletionDate | Priority | ToDoListID | ParentToDo |
++----+---------------------+---------------+---------------------+---------------------+-----------+----------------+----------+------------+------------+
+| 22 | Assigment 3 and 4   | For webdata   | 2014-12-02 16:11:25 | 2014-12-18 12:00:00 |         0 | NULL           |        3 |          1 |       NULL |
+| 26 | Assignment 4 part 2 | part 2 for A4 | 2014-12-02 16:15:45 | 2014-12-18 12:00:00 |         0 | NULL           |        3 |          1 |         22 |
++----+---------------------+---------------+---------------------+---------------------+-----------+----------------+----------+------------+------------+
+2 rows in set (0.00 sec)
+
+
+2.5 Show subitems for given ToDoItem
+
+SELECT * 
+FROM ToDoItem 
+WHERE ParentToDo=1;
+
++----+------------------------------+------------------------------------------------------------------+---------------------+---------------------+-----------+---------------------+----------+------------+------------+
+| Id | Title                        | Text                                                             | CreationDate        | DueDate             | Completed | CompletionDate      | Priority | ToDoListID | ParentToDo |
++----+------------------------------+------------------------------------------------------------------+---------------------+---------------------+-----------+---------------------+----------+------------+------------+
+|  2 | Do telnet exercises          | Do all telnet exercises and understand what is happening and why | 2014-11-18 22:51:48 | 2014-11-20 23:59:59 |         1 | 2014-11-18 13:35:48 |        3 |          1 |          1 |
+|  3 | Do HTML part of assignment 1 | Do the html part of the first assignment: code and design        | 2014-11-18 15:26:58 | 2014-11-20 23:59:59 |         1 | 2014-11-19 15:59:36 |        3 |          1 |          1 |
++----+------------------------------+------------------------------------------------------------------+---------------------+---------------------+-----------+---------------------+----------+------------+------------+
+2 rows in set (0.00 sec)
+
+2.6 For given ToDoItem show values of all its tags
+
+SELECT Tag.Text 
+FROM ItemTag, Tag 
+WHERE ItemTag.ToDoId=1 AND ItemTag.TagId = Tag.Id;
+
++---------+
+| Text    |
++---------+
+| webdata |
+| school  |
++---------+
+2 rows in set (0.00 sec)
+
+2.7 For given tag, show all ToDoLists containing ToDoItem tagged with given tag
+
+SELECT ToDoList.* 
+FROM ToDoList, ToDoItem, ItemTag 
+WHERE ItemTag.TagId = 2 AND ItemTag.ToDoId = ToDoItem.Id AND ToDoItem.ToDoListId = ToDoList.Id;
+
++----+----------+---------------------+-------+----------+
+| Id | Name     | CreationDate        | Owner | IsPublic |
++----+----------+---------------------+-------+----------+
+|  4 | Personal | 2014-10-22 00:00:00 |     2 |        0 |
+|  4 | Personal | 2014-10-22 00:00:00 |     2 |        0 |
+|  4 | Personal | 2014-10-22 00:00:00 |     2 |        0 |
++----+----------+---------------------+-------+----------+
+3 rows in set (0.00 sec)
+
+2.8 For each tag, calculate the number of currently pending and completed tasks.
+
+SELECT ItemTag.TagId, SUM(ToDoItem.Completed=0) as Pending, SUM(ToDoItem.Completed=1) as Completed 
+FROM ItemTag, ToDoItem 
+WHERE ItemTag.ToDoId = ToDoItem.Id 
+GROUP BY ItemTag.TagId;
+
++-------+---------+-----------+
+| TagId | Pending | Completed |
++-------+---------+-----------+
+|     1 |       2 |        11 |
+|     2 |       2 |         1 |
+|     3 |       5 |        14 |
+|     4 |       2 |         0 |
+|     5 |       4 |         4 |
++-------+---------+-----------+
+5 rows in set (0.00 sec)
+
+2.9 For each week in current the year calculate number of completed todos.
+
+
+SELECT WEEK(CompletionDate) AS CompletionWeek, COUNT(*) AS CompletedTodos 
+FROM ToDoItem 
+WHERE ToDoItem.Completed=1 
+GROUP BY CompletionWeek;
+
++----------------+----------------+
+| CompletionWeek | CompletedTodos |
++----------------+----------------+
+|             20 |              1 |
+|             43 |              1 |
+|             44 |              1 |
+|             46 |              3 |
+|             47 |              5 |
+|             48 |              2 |
+|             50 |              4 |
++----------------+----------------+
+7 rows in set (0.00 sec)
+
+2.10 For each tag retrieve top 10 fastest completed tasks
+
+SELECT ToDoItem.Id AS ToDoItem, TIMESTAMPDIFF(SECOND, ToDoItem.CreationDate, ToDoItem.CompletionDate) as CompletionTime 
+FROM ItemTag, ToDoItem WHERE ItemTag.ToDoId = ToDoItem.Id AND ItemTag.TagId=1 
+HAVING CompletionTime IS NOT NULL AND CompletionTime > 0 
+ORDER BY CompletionTime ASC
+LIMIT 10;
+
+SELECT ToDoItem.Id AS ToDoItem, TIMESTAMPDIFF(SECOND, ToDoItem.CreationDate, ToDoItem.CompletionDate) as CompletionTime 
+FROM ItemTag, ToDoItem WHERE ItemTag.ToDoId = ToDoItem.Id AND ItemTag.TagId=1 
+HAVING CompletionTime IS NOT NULL AND CompletionTime > 0 
+ORDER BY CompletionTime ASC
+LIMIT 10;
+
+SELECT waka.TagId, ToDoItem.Id AS ToDoItem FROM ItemTag as waka, ToDoItem WHERE(
+SELECT COUNT(*) as dooku FROM ItemTag WHERE ItemTag.ToDoId = ToDoItem.Id AND ItemTag.TagId=waka.TagId 
+HAVING TIMESTAMPDIFF(SECOND, ToDoItem.CreationDate, ToDoItem.CompletionDate) IS NOT NULL AND TIMESTAMPDIFF(SECOND, ToDoItem.CreationDate, ToDoItem.CompletionDate) > 0 ORDER BY TIMESTAMPDIFF(SECOND, ToDoItem.CreationDate, ToDoItem.CompletionDate) ASC) <= 2;
+
+
+SELECT waka.TagId FROM ItemTag as waka,(SELECT COUNT(*) as dooku, TIMESTAMPDIFF(SECOND, ToDoItem.CreationDate, ToDoItem.CompletionDate) as CompletionTime
+ FROM ItemTag, ToDoItem WHERE ItemTag.ToDoId = ToDoItem.Id AND ItemTag.TagId=waka.TagId 
+HAVING CompletionTime IS NOT NULL AND CompletionTime > 0 ORDER BY CompletionTime ASC) AS table WHERE
+  table.dooku <= 2;
+
++----------+----------------+
+| ToDoItem | CompletionTime |
++----------+----------------+
+|       18 |          74977 |
+|        3 |          88358 |
+|       19 |         174398 |
+|       17 |         174588 |
+|        1 |         298743 |
+|       27 |         344030 |
+|       23 |        1025003 |
+|       24 |        1045201 |
+|       25 |        1199491 |
++----------+----------------+
+9 rows in set (0.01 sec)
+
+2.11 Calculate the frequency of co-occurrence of tags (i.e. the number of times each possible combination of tag pairs is used in the database)
+
+SELECT Tag1.TagId, Tag2.TagId, COUNT(*) 
+FROM ItemTag AS Tag1, ItemTag AS Tag2 
+WHERE Tag1.TagId <> Tag2.TagId AND Tag1.TagId < Tag2.TagId AND Tag1.ToDoId=Tag2.ToDoId 
+GROUP BY Tag1.TagId, Tag2.TagId;
+
++-------+-------+----------+
+| TagId | TagId | COUNT(*) |
++-------+-------+----------+
+|     1 |     3 |       13 |
+|     1 |     5 |        1 |
+|     2 |     5 |        3 |
+|     3 |     5 |        2 |
++-------+-------+----------+
+4 rows in set (0.00 sec)
+
+2.12 Calculate average time of completion of a todo for given ToDoList
+
+SELECT AVG(TIMESTAMPDIFF(SECOND, ToDoItem.CreationDate, ToDoItem.CompletionDate)) AS Average 
+FROM ToDoList, ToDoItem 
+WHERE ToDoItem.ToDoListId=ToDoList.Id AND ToDoItem.Completed=1 AND ToDoList.Id=1;
+
++-------------+
+| Average     |
++-------------+
+| 221182.9091 |
++-------------+
+1 row in set (0.00 sec)
+
+2.13 List the to-dos having a completion time higher than the average time of completion for the todos belonging to the same ToDoList.
+
+SELECT ToDoItem.* 
+FROM ToDoList, ToDoItem 
+WHERE ToDoItem.ToDoListId=ToDoList.Id AND ToDoItem.Completed=1 AND ToDoList.Id=1 
+HAVING TIMESTAMPDIFF(SECOND, ToDoItem.CreationDate, ToDoItem.CompletionDate) > 
+	(SELECT AVG(TIMESTAMPDIFF(SECOND, ToDoItem.CreationDate, ToDoItem.CompletionDate)) 
+	FROM ToDoList, ToDoItem 
+	WHERE ToDoItem.ToDoListId=ToDoList.Id AND ToDoItem.Completed=1 AND ToDoList.Id=1);
+
++----+------------------------------+--------------------------------------------------+---------------------+---------------------+-----------+---------------------+----------+------------+------------+
+| Id | Title                        | Text                                             | CreationDate        | DueDate             | Completed | CompletionDate      | Priority | ToDoListID | ParentToDo |
++----+------------------------------+--------------------------------------------------+---------------------+---------------------+-----------+---------------------+----------+------------+------------+
+|  1 | Do assignment 1              | Finish assignment one before the assessment time | 2014-11-17 12:56:12 | 2014-11-20 23:59:59 |         1 | 2014-11-20 23:55:15 |        3 |          1 |       NULL |
+| 23 | Assignemnt 3 part 1          | part 1 for A3                                    | 2014-12-02 16:12:11 | 2014-12-18 12:00:00 |         1 | 2014-12-14 12:55:34 |        3 |          1 |         22 |
+| 24 | Assignment 3 part 2          | part 2 for A3                                    | 2014-12-02 16:12:55 | 2014-12-18 12:00:00 |         1 | 2014-12-14 18:32:56 |        3 |          1 |         22 |
+| 25 | Assignment 4 part 1          | part 1 for A4                                    | 2014-12-02 16:14:25 | 2014-12-18 12:00:00 |         1 | 2014-12-16 13:25:56 |        3 |          1 |         22 |
+| 27 | Create database for students | So they can practice with the assignments        | 2014-12-12 15:48:55 | 2014-12-16 23:59:59 |         1 | 2014-12-16 15:22:45 |        3 |          1 |       NULL |
++----+------------------------------+--------------------------------------------------+---------------------+---------------------+-----------+---------------------+----------+------------+------------+
+5 rows in set (0.00 sec)
+
+
+
