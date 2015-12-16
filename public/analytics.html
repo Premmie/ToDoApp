@@ -1,0 +1,197 @@
+<!doctype html>
+<html>
+<head>
+    <link href="css/dashboard.css" rel="stylesheet" type="text/css">
+    <script src="js/dashboard.js"></script>
+    <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+</head>
+<body>
+<header>
+    <ul class="menu-bar">
+        <li class="menu-item title">
+            <a href="splash.html">D O L I S T</a>
+        </li>
+        <li class="menu-item link">
+            <a href="analytics.html">Dashboard</a>
+        </li>
+        <li class="menu-item link">
+            <a href="">FAQ</a>
+        </li>
+        <li class="menu-item link">
+            <a href="">Support</a>
+        </li>
+        <li class="menu-item menu-actions">
+            <a class="button" href="todo.html">Sign In</a>
+        </li>
+    </ul>
+</header>
+<div id="1" class="info-wrapper">
+    <div class="text-wrapper">
+        <form id="1-form" autocomplete="off">
+            <p>List all the ToDoLists belonging to a given user.</p>
+            <input id="1-input" type="number" placeholder="User Id">
+            <button id="1-confirm" type="submit" form="1-form">Confirm</button>
+        </form>
+        <div class="content">
+
+        </div>
+    </div>
+</div>
+<div id="2" class="info-wrapper">
+    <div class="text-wrapper">
+        <form id="2-form" autocomplete="off">
+            <p>List all the ToDoItems belonging to a given ToDoList.</p>
+            <input id="2-input" type="number" placeholder="ToDoList Id">
+            <button id="2-confirm" type="submit" form="2-form">Confirm</button>
+        </form>
+        <div class="content">
+
+        </div>
+    </div>
+</div>
+<div id="3" class="info-wrapper">
+    <div class="text-wrapper">
+        <form id="3-form" autocomplete="off">
+            <p>List all the ToDoItems belonging to a given ToDoList.</p>
+            <input id="3-input" type="number" placeholder="ToDoList Id">
+            <button id="3-confirm" type="submit" form="3-form">Confirm</button>
+        </form>
+        <div class="content">
+
+        </div>
+    </div>
+</div>
+<div id="4" class="info-wrapper">
+    <div class="text-wrapper">
+        <form id="4-form" autocomplete="off">
+            <p>Add to the query in (3) the ability to filter ToDoItems according to 1) A range of date creation,
+                2) a priority level, 3) the completion status.</p>
+            <input id="4-input" type="number" placeholder="User Id">
+            <input id="4-datestart" type="date">
+            <input id="4-dateend" type="number">
+            <input id="4-priority" type="number">
+            <input id="4-completed" type="checkbox">
+            <button id="4-confirm" type="submit" form="4-form">Confirm</button>
+        </form>
+        <div class="content">
+
+        </div>
+    </div>
+</div>
+<div id="5" class="info-wrapper">
+    <div class="text-wrapper">
+        <form id="5-form" autocomplete="off">
+            <p>For a given ToDoItem, show all its sub-items.</p>
+            <input id="5-input" type="number" placeholder="ToDoItem Id">
+            <button id="5-confirm" type="submit" form="5-form">Confirm</button>
+        </form>
+        <div class="content">
+
+        </div>
+    </div>
+</div>
+<div id="6" class="info-wrapper">
+    <div class="text-wrapper">
+        <form id="6-form" autocomplete="off">
+            <p>For a given ToDoItem, show the value of all its tags.</p>
+            <input id="6-input" type="number" placeholder="ToDoItem Id">
+            <button id="6-confirm" type="submit" form="6-form">Confirm</button>
+        </form>
+        <div class="content">
+
+        </div>
+    </div>
+</div>
+<div id="7" class="info-wrapper">
+    <div class="text-wrapper">
+        <form id="7-form" autocomplete="off">
+            <p>For a given tag, show all the ToDoLists that contain ToDoItems which are tagged with that tag.</p>
+            <input id="7-input" type="number" placeholder="Tag Id">
+            <button id="7-confirm" type="submit" form="7-form">Confirm</button>
+        </form>
+        <div class="content">
+
+        </div>
+    </div>
+</div>
+<div id="8" class="info-wrapper">
+    <div class="text-wrapper">
+        <form id="8-form" autocomplete="off">
+            <p>For each tag, calculate the number of currently pending and completed to-dos.</p>
+            <input id="8-input" type="number" placeholder="Tag Id">
+            <button id="8-confirm" type="submit" form="8-form">Confirm</button>
+        </form>
+        <div class="content">
+
+        </div>
+    </div>
+</div>
+<div id="9" class="info-wrapper">
+    <div class="text-wrapper">
+        <form id="9-form" autocomplete="off">
+            <p>For each tag, calculate the number of currently pending and completed to-dos.</p>
+        </form>
+        <div class="content">
+
+        </div>
+    </div>
+</div>
+<div id="11" class="info-wrapper">
+    <div class="text-wrapper">
+        <form id="11-form" autocomplete="off">
+            <p>Calculate the frequency of co-occurrence of tags.</p>
+        </form>
+        <div class="content">
+
+        </div>
+    </div>
+</div>
+<div id="12" class="info-wrapper">
+    <div class="text-wrapper">
+        <form id="12-form" autocomplete="off">
+            <p>For a given ToDoList, calculated the average time of completion of to-dos.</p>
+            <input id="12-input" type="number" placeholder="ToDoList Id">
+            <button id="12-confirm" type="submit" form="12-form">Confirm</button>
+        </form>
+        <div class="content">
+
+        </div>
+    </div>
+</div>
+
+<div id="13" class="info-wrapper">
+    <div class="text-wrapper">
+        <form id="13-form" autocomplete="off">
+            <p>List the to-dos having a completion time higher than the average time of completion for the todos
+                belonging to the same ToDoList.</p>
+            <input id="13-input" type="number" placeholder="ToDoList Id">
+            <button id="13-confirm" type="submit" form="13-form">Confirm</button>
+        </form>
+        <div class="content">
+
+        </div>
+    </div>
+</div>
+
+<footer>
+    <ul class="menu-bar">
+        <li class="menu-item title">
+            <a href="splash.html">Terms of Use</a>
+        </li>
+        <li class="menu-item link">
+            <a href="">Privacy Policy</a>
+        </li>
+        <li class="menu-item link">
+            <a href="">Contact</a>
+        </li>
+        <li class="menu-item link">
+            <a href="">Press</a>
+        </li>
+        <li class="menu-item link">
+            <a href="">Jobs</a>
+        </li>
+    </ul>
+</footer>
+</body>
+</html>
