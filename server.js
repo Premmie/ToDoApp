@@ -25,6 +25,8 @@ app.use(express.static('public'));
 
 connection.connect();
 
+// SERVER ROUTING
+
 app.get('/', function(req, res) {
     res.redirect('/splash.html');
     res.end();
@@ -35,7 +37,6 @@ app.get('/tasklist', function(req, res) {
 	res.json(list);
 	res.end();
 });
-
 
 app.post('/add', function(req, res) {
 	var task = new Task(req.body.note, req.body.date, req.body.priority, counter);	
@@ -141,6 +142,7 @@ app.post('/updatedb', function(req, res) {
 	});
 	
 	res.json({});
+	res.end();
 });
 
 app.post('/deletedb', function(req, res) {
@@ -157,6 +159,175 @@ app.post('/deletedb', function(req, res) {
 });
 
 // DATABASE ANALYTICS FUNCTIONALITY
+
+app.get('/a21', function(req, res) {
+	var user = req.query.user;
+	var query = 'SELECT ToDoList.* FROM ToDoList JOIN User ON(ToDoList.Owner=User.Id) WHERE User.id=' + user;
+	connection.query(query, function(error, result) {
+		if (error) {
+			console.log(error);
+		} else {
+			res.json(result);
+			res.end();
+		}	
+	});
+});
+
+app.get('/a22', function(req, res) {
+	var id = req.query.id;
+	var query = 'SELECT ToDoItem.* FROM ToDoItem JOIN ToDoList ON(ToDoItem.ToDoListId=ToDoList.Id) WHERE ToDoList.Id=' + id;
+	connection.query(query, function(error, result) {
+		if (error) {
+			console.log(error);
+		} else {
+			res.json(result);
+			res.end();
+		}	
+	});
+});
+
+app.get('/a23', function(req, res) {
+	var id = req.query.id;
+	var page = { start: req.query.start, end: req.query.end };
+	var query = 'SELECT ToDoItem.* FROM ToDoItem JOIN ToDoList ON(ToDoItem.ToDoListId=ToDoList.Id) WHERE ToDoList.Id=' + id + 'LIMIT ' + page.start + ', ' + page.end;
+	connection.query(query, function(error, result) {
+		if (error) {
+			console.log(error);
+		} else {
+			res.json(result);
+			res.end();
+		}	
+	});
+});
+
+app.get('/a24', function(req, res) {
+	var id = req.query.id;
+	var range = { dateStart: req.query.start, dateEnd: req.query.end };
+	var priority = req.query.priority;
+	var completed = req.query.completed;
+	var query = 'SELECT ToDoItem.* FROM ToDoItem JOIN ToDoList ON(ToDoItem.ToDoListId=ToDoList.Id) WHERE ToDoList.Id=' + id;
+	if (range.dateStart != undefined) {
+		query.concat(' AND ToDoItem.CreationDate BETWEEN ' + range.dateStart + ' AND ' + range.dateEnd);
+	}
+	
+	if (priority != undefined) {
+		query.concat(' AND ToDoItem.Priority=' + priority); 
+	}
+	
+	if (completed != undefined) {
+		query.concat(' AND ToDoItem.Completed=' + completed); 
+	}
+	
+	connection.query(query, function(error, result) {
+		if (error) {
+			console.log(error);
+		} else {
+			res.json(result);
+			res.end();
+		}	
+	});
+});
+
+app.get('/a25', function(req, res) {
+	var id = req.query.id;
+	var query = 'SELECT * FROM ToDoItem WHERE ParentToDo=' + id;
+	connection.query(query, function(error, result) {
+		if (error) {
+			console.log(error);
+		} else {
+			res.json(result);
+			res.end();
+		}	
+	});
+});
+
+app.get('/a26', function(req, res) {
+	var id = req.query.id;
+	var query = 'SELECT Tag.Text FROM ItemTag, Tag WHERE ItemTag.TagId = Tag.Id AND ItemTag.ToDoId=' + id;
+	connection.query(query, function(error, result) {
+		if (error) {
+			console.log(error);
+		} else {
+			res.json(result);
+			res.end();
+		}	
+	});
+});
+
+app.get('/a27', function(req, res) {
+	var id = req.query.id;
+	var query = 'SELECT ToDoList.* FROM ToDoList, ToDoItem, ItemTag WHERE ItemTag.ToDoId = ToDoItem.Id AND ToDoItem.ToDoListId = ToDoList.Id AND ItemTag.TagId=' + id;
+	connection.query(query, function(error, result) {
+		if (error) {
+			console.log(error);
+		} else {
+			res.json(result);
+			res.end();
+		}	
+	});
+});
+
+app.get('/a28', function(req, res) {
+	var query = 'SELECT ItemTag.TagId, SUM(ToDoItem.Completed=0) as Pending, SUM(ToDoItem.Completed=1) as Completed FROM ItemTag, ToDoItem WHERE ItemTag.ToDoId = ToDoItem.Id GROUP BY ItemTag.TagId';
+	connection.query(query, function(error, result) {
+		if (error) {
+			console.log(error);
+		} else {
+			res.json(result);
+			res.end();
+		}	
+	});
+});
+
+app.get('/a29', function(req, res) {
+	var query = 'SELECT WEEK(CompletionDate) AS CompletionWeek, COUNT(*) AS CompletedTodos FROM ToDoItem WHERE ToDoItem.Completed=1 GROUP BY CompletionWeek';
+	connection.query(query, function(error, result) {
+		if (error) {
+			console.log(error);
+		} else {
+			res.json(result);
+			res.end();
+		}	
+	});
+});
+
+app.get('/a211', function(req, res) {
+	var query = 'SELECT Tag1.TagId as FirstTag, Tag2.TagId as SecondTag, COUNT(*) FROM ItemTag AS Tag1, ItemTag AS Tag2 WHERE Tag1.TagId <> Tag2.TagId AND Tag1.TagId < Tag2.TagId AND Tag1.ToDoId=Tag2.ToDoId GROUP BY Tag1.TagId, Tag2.TagId'
+	connection.query(query, function(error, result) {
+		if (error) {
+			console.log(error);
+		} else {
+			res.json(result);
+			res.end();
+		}	
+	});
+});
+
+app.get('/a212', function(req, res) {
+	var id = req.query.id;
+	var query = 'AVG(TIMESTAMPDIFF(SECOND, ToDoItem.CreationDate, ToDoItem.CompletionDate)) AS Average FROM ToDoList, ToDoItem WHERE ToDoItem.ToDoListId=ToDoList.Id AND ToDoItem.Completed=1 AND ToDoList.Id='+ id;
+	connection.query(query, function(error, result) {
+		if (error) {
+			console.log(error);
+		} else {
+			res.json(result);
+			res.end();
+		}	
+	});
+});
+
+app.get('/a213', function(req, res) {
+	var id = req.query.id;
+	var query = 'SELECT ToDoItem.* FROM ToDoList, ToDoItem WHERE ToDoItem.ToDoListId=ToDoList.Id AND ToDoItem.Completed=1 AND ToDoList.Id= ' + id + ' HAVING TIMESTAMPDIFF(SECOND, ToDoItem.CreationDate, ToDoItem.CompletionDate) > (SELECT AVG(TIMESTAMPDIFF(SECOND, ToDoItem.CreationDate, ToDoItem.CompletionDate)) FROM ToDoList, ToDoItem WHERE ToDoItem.ToDoListId=ToDoList.Id AND ToDoItem.Completed=1 AND ToDoList.Id=' + id + ')';
+	connection.query(query, function(error, result) {
+		if (error) {
+			console.log(error);
+		} else {
+			res.json(result);
+			res.end();
+		}	
+	});
+});
 
 var server = app.listen(1010, function(error) {
 	var port = server.address().port;

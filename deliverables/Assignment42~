@@ -38,7 +38,7 @@ WHERE ToDoList.Id=1;
 +----+------------------------------+------------------------------------------------------------------+---------------------+---------------------+-----------+---------------------+----------+------------+------------+----+--------+---------------------+-------+----------+
 13 rows in set (0.00 sec)
 
-2.3 List ToDoItems belonging to given ToDoList with paging.
+2.3 List ToDoItems belonging to given ToDoList with paging
 
 SELECT ToDoItem.* 
 FROM ToDoItem JOIN ToDoList ON(ToDoItem.ToDoListId=ToDoList.Id) 
