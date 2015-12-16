@@ -134,18 +134,16 @@ WHERE ItemTag.ToDoId=1 AND ItemTag.TagId = Tag.Id;
 
 2.7 For given tag, show all ToDoLists containing ToDoItem tagged with given tag
 
-SELECT ToDoList.* 
+SELECT DISTINCT ToDoList.* 
 FROM ToDoList, ToDoItem, ItemTag 
 WHERE ItemTag.TagId = 2 AND ItemTag.ToDoId = ToDoItem.Id AND ToDoItem.ToDoListId = ToDoList.Id;
 
 +----+----------+---------------------+-------+----------+
 | Id | Name     | CreationDate        | Owner | IsPublic |
 +----+----------+---------------------+-------+----------+
-|  4 | Personal | 2014-10-22 00:00:00 |     2 |        0 |
-|  4 | Personal | 2014-10-22 00:00:00 |     2 |        0 |
-|  4 | Personal | 2014-10-22 00:00:00 |     2 |        0 |
+|  4 | Personal | 2014-10-22 00:00:00 |     2 |        0 ||
 +----+----------+---------------------+-------+----------+
-3 rows in set (0.00 sec)
+1 rows in set (0.00 sec)
 
 2.8 For each tag, calculate the number of currently pending and completed tasks.
 

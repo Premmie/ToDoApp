@@ -103,7 +103,7 @@ function a2() {
 function a3() {
 	var $id = $('#3-input').val();
 	var $start = $('#3-start').val() ? $('#3-start').val() : 0;
-	var $end = $('#3-end').val() ? $('#3-end').val() : 10;
+	var $end = $('#3-end').val() ? $('#3-end').val() : 0;
 	if ($id) {
 		$('#3').find('.content').empty();
 	 	$.get('/a23?id=' + $id + '&start=' + $start + '&end=' + $end, function(result) {

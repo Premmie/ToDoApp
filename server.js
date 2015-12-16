@@ -189,10 +189,12 @@ app.get('/a22', function(req, res) {
 app.get('/a23', function(req, res) {
 	var id = req.query.id;
 	var page = { start: req.query.start, end: req.query.end };
-	var query = 'SELECT ToDoItem.* FROM ToDoItem JOIN ToDoList ON(ToDoItem.ToDoListId=ToDoList.Id) WHERE ToDoList.Id=' + id + 'LIMIT ' + page.start + ', ' + page.end;
+	var query = 'SELECT ToDoItem.* FROM ToDoItem JOIN ToDoList ON(ToDoItem.ToDoListId=ToDoList.Id) WHERE ToDoList.Id=' + id + ' LIMIT ' + page.start + ', ' + page.end;
+	
 	connection.query(query, function(error, result) {
 		if (error) {
 			console.log(error);
+			res.end('Error');
 		} else {
 			res.json(result);
 			res.end();
@@ -202,25 +204,30 @@ app.get('/a23', function(req, res) {
 
 app.get('/a24', function(req, res) {
 	var id = req.query.id;
-	var range = { dateStart: req.query.start, dateEnd: req.query.end };
+	var page = { start: req.query.start, end: req.query.end };
+	var dateStart = req.query.dateStart;
+	var dateEnd = req.query.dateEnd;
 	var priority = req.query.priority;
 	var completed = req.query.completed;
 	var query = 'SELECT ToDoItem.* FROM ToDoItem JOIN ToDoList ON(ToDoItem.ToDoListId=ToDoList.Id) WHERE ToDoList.Id=' + id;
-	if (range.dateStart != undefined) {
-		query.concat(' AND ToDoItem.CreationDate BETWEEN ' + range.dateStart + ' AND ' + range.dateEnd);
+	
+	if (dateStart != '' && dateEnd != '' ) {
+		
+		query += ' AND ToDoItem.CreationDate BETWEEN "' + new Date(dateStart).toISOString() + '" AND "' + new Date(dateEnd).toISOString() + '"';
 	}
 	
-	if (priority != undefined) {
-		query.concat(' AND ToDoItem.Priority=' + priority); 
+	if (priority != 'undefined') {
+		query += ' AND ToDoItem.Priority=' + priority; 
 	}
 	
-	if (completed != undefined) {
-		query.concat(' AND ToDoItem.Completed=' + completed); 
-	}
+	query += ' AND ToDoItem.Completed=' + completed; 
+	query += ' LIMIT ' + page.start + ', ' + page.end;
 	
+	console.log(query);
 	connection.query(query, function(error, result) {
 		if (error) {
 			console.log(error);
+			res.end();
 		} else {
 			res.json(result);
 			res.end();
@@ -234,6 +241,7 @@ app.get('/a25', function(req, res) {
 	connection.query(query, function(error, result) {
 		if (error) {
 			console.log(error);
+			res.end();
 		} else {
 			res.json(result);
 			res.end();
@@ -247,6 +255,7 @@ app.get('/a26', function(req, res) {
 	connection.query(query, function(error, result) {
 		if (error) {
 			console.log(error);
+			res.end();
 		} else {
 			res.json(result);
 			res.end();
@@ -256,10 +265,11 @@ app.get('/a26', function(req, res) {
 
 app.get('/a27', function(req, res) {
 	var id = req.query.id;
-	var query = 'SELECT ToDoList.* FROM ToDoList, ToDoItem, ItemTag WHERE ItemTag.ToDoId = ToDoItem.Id AND ToDoItem.ToDoListId = ToDoList.Id AND ItemTag.TagId=' + id;
+	var query = 'SELECT DISTINCT ToDoList.* FROM ToDoList, ToDoItem, ItemTag WHERE ItemTag.ToDoId = ToDoItem.Id AND ToDoItem.ToDoListId = ToDoList.Id AND ItemTag.TagId=' + id;
 	connection.query(query, function(error, result) {
 		if (error) {
 			console.log(error);
+			res.end();
 		} else {
 			res.json(result);
 			res.end();
@@ -272,6 +282,7 @@ app.get('/a28', function(req, res) {
 	connection.query(query, function(error, result) {
 		if (error) {
 			console.log(error);
+			res.end();
 		} else {
 			res.json(result);
 			res.end();
@@ -284,6 +295,7 @@ app.get('/a29', function(req, res) {
 	connection.query(query, function(error, result) {
 		if (error) {
 			console.log(error);
+			res.end();
 		} else {
 			res.json(result);
 			res.end();
@@ -296,6 +308,7 @@ app.get('/a211', function(req, res) {
 	connection.query(query, function(error, result) {
 		if (error) {
 			console.log(error);
+			res.end();
 		} else {
 			res.json(result);
 			res.end();
@@ -305,10 +318,11 @@ app.get('/a211', function(req, res) {
 
 app.get('/a212', function(req, res) {
 	var id = req.query.id;
-	var query = 'AVG(TIMESTAMPDIFF(SECOND, ToDoItem.CreationDate, ToDoItem.CompletionDate)) AS Average FROM ToDoList, ToDoItem WHERE ToDoItem.ToDoListId=ToDoList.Id AND ToDoItem.Completed=1 AND ToDoList.Id='+ id;
+	var query = 'SELECT AVG(TIMESTAMPDIFF(SECOND, ToDoItem.CreationDate, ToDoItem.CompletionDate)) AS Average FROM ToDoList, ToDoItem WHERE ToDoItem.ToDoListId=ToDoList.Id AND ToDoItem.Completed=1 AND ToDoList.Id='+ id;
 	connection.query(query, function(error, result) {
 		if (error) {
 			console.log(error);
+			res.end();
 		} else {
 			res.json(result);
 			res.end();
@@ -322,6 +336,7 @@ app.get('/a213', function(req, res) {
 	connection.query(query, function(error, result) {
 		if (error) {
 			console.log(error);
+			res.end();
 		} else {
 			res.json(result);
 			res.end();

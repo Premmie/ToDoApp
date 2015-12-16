@@ -95,7 +95,8 @@ a:hover:not(.button) {
 }
 
 .text-wrapper {
-    padding: 40px;
+    padding-top: 40px;
+    padding-bottom: 40px;
     min-width: 400px;
     width:100%;
 }

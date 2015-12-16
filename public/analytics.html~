@@ -69,7 +69,7 @@
         <form id="4-form" autocomplete="off">
             <p>Add to the query in (3) the ability to filter ToDoItems according to 1) A range of date creation,
                 2) a priority level, 3) the completion status.</p>
-            <input id="4-input" type="number" placeholder="ToDoList Id">
+            <input id="4-input" type="number" placeholder="User Id">
             <input id="4-start" type="number" placeholder="Offset">
             <input id="4-end" type="number" placeholder="Count">
             <input id="4-datestart" type="date">

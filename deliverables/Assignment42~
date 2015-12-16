@@ -38,7 +38,7 @@ WHERE ToDoList.Id=1;
 +----+------------------------------+------------------------------------------------------------------+---------------------+---------------------+-----------+---------------------+----------+------------+------------+----+--------+---------------------+-------+----------+
 13 rows in set (0.00 sec)
 
-2.3 List ToDoItems belonging to given ToDoList with paging
+2.3 List ToDoItems belonging to given ToDoList with paging.
 
 SELECT ToDoItem.* 
 FROM ToDoItem JOIN ToDoList ON(ToDoItem.ToDoListId=ToDoList.Id) 
@@ -134,7 +134,7 @@ WHERE ItemTag.ToDoId=1 AND ItemTag.TagId = Tag.Id;
 
 2.7 For given tag, show all ToDoLists containing ToDoItem tagged with given tag
 
-SELECT ToDoList.* 
+SELECT DISTINCT ToDoList.* 
 FROM ToDoList, ToDoItem, ItemTag 
 WHERE ItemTag.TagId = 2 AND ItemTag.ToDoId = ToDoItem.Id AND ToDoItem.ToDoListId = ToDoList.Id;
 
