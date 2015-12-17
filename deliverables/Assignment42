@@ -141,7 +141,7 @@ WHERE ItemTag.TagId = 2 AND ItemTag.ToDoId = ToDoItem.Id AND ToDoItem.ToDoListId
 +----+----------+---------------------+-------+----------+
 | Id | Name     | CreationDate        | Owner | IsPublic |
 +----+----------+---------------------+-------+----------+
-|  4 | Personal | 2014-10-22 00:00:00 |     2 |        0 ||
+|  4 | Personal | 2014-10-22 00:00:00 |     2 |        0 |
 +----+----------+---------------------+-------+----------+
 1 rows in set (0.00 sec)
 
@@ -191,22 +191,6 @@ FROM ItemTag, ToDoItem WHERE ItemTag.ToDoId = ToDoItem.Id AND ItemTag.TagId=1
 HAVING CompletionTime IS NOT NULL AND CompletionTime > 0 
 ORDER BY CompletionTime ASC
 LIMIT 10;
-
-SELECT ToDoItem.Id AS ToDoItem, TIMESTAMPDIFF(SECOND, ToDoItem.CreationDate, ToDoItem.CompletionDate) as CompletionTime 
-FROM ItemTag, ToDoItem WHERE ItemTag.ToDoId = ToDoItem.Id AND ItemTag.TagId=1 
-HAVING CompletionTime IS NOT NULL AND CompletionTime > 0 
-ORDER BY CompletionTime ASC
-LIMIT 10;
-
-SELECT waka.TagId, ToDoItem.Id AS ToDoItem FROM ItemTag as waka, ToDoItem WHERE(
-SELECT COUNT(*) as dooku FROM ItemTag WHERE ItemTag.ToDoId = ToDoItem.Id AND ItemTag.TagId=waka.TagId 
-HAVING TIMESTAMPDIFF(SECOND, ToDoItem.CreationDate, ToDoItem.CompletionDate) IS NOT NULL AND TIMESTAMPDIFF(SECOND, ToDoItem.CreationDate, ToDoItem.CompletionDate) > 0 ORDER BY TIMESTAMPDIFF(SECOND, ToDoItem.CreationDate, ToDoItem.CompletionDate) ASC) <= 2;
-
-
-SELECT waka.TagId FROM ItemTag as waka,(SELECT COUNT(*) as dooku, TIMESTAMPDIFF(SECOND, ToDoItem.CreationDate, ToDoItem.CompletionDate) as CompletionTime
- FROM ItemTag, ToDoItem WHERE ItemTag.ToDoId = ToDoItem.Id AND ItemTag.TagId=waka.TagId 
-HAVING CompletionTime IS NOT NULL AND CompletionTime > 0 ORDER BY CompletionTime ASC) AS table WHERE
-  table.dooku <= 2;
 
 +----------+----------------+
 | ToDoItem | CompletionTime |

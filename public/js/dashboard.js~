@@ -103,7 +103,7 @@ function a2() {
 function a3() {
 	var $id = $('#3-input').val();
 	var $start = $('#3-start').val() ? $('#3-start').val() : 0;
-	var $end = $('#3-end').val() ? $('#3-end').val() : 0;
+	var $end = $('#3-end').val() ? $('#3-end').val() : 10;
 	if ($id) {
 		$('#3').find('.content').empty();
 	 	$.get('/a23?id=' + $id + '&start=' + $start + '&end=' + $end, function(result) {
@@ -211,6 +211,23 @@ function a9() {
         
     }, 'json');
 }
+
+function a10() {
+	var $id = $('#10-input').val();
+	if ($id) {
+		$('#10').find('.content').empty();
+	 	$.get('/a210?id=' + $id, function(result) {
+			if (result.length > 0) {
+				$.each(result, function(index, object) {
+					$('#10').find('.content').append('<p>' + JSON.stringify(object) + '</p>');
+				});
+			} else {
+				$('#10').find('.content').append('<p>No items found.</p>');
+			}
+    	}, 'json');	
+	}
+}
+
 
 function a11() {
     $.get('/a211', function(result) {

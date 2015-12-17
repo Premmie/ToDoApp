@@ -213,7 +213,7 @@ app.get('/a24', function(req, res) {
 	
 	if (dateStart != '' && dateEnd != '' ) {
 		
-		query += ' AND ToDoItem.CreationDate BETWEEN "' + new Date(dateStart).toISOString() + '" AND "' + new Date(dateEnd).toISOString() '"';
+		query += ' AND ToDoItem.CreationDate BETWEEN "' + new Date(dateStart).toISOString() + '" AND "' + new Date(dateEnd).toISOString() + '"';
 	}
 	
 	if (priority != 'undefined') {
@@ -292,6 +292,20 @@ app.get('/a28', function(req, res) {
 
 app.get('/a29', function(req, res) {
 	var query = 'SELECT WEEK(CompletionDate) AS CompletionWeek, COUNT(*) AS CompletedTodos FROM ToDoItem WHERE ToDoItem.Completed=1 GROUP BY CompletionWeek';
+	connection.query(query, function(error, result) {
+		if (error) {
+			console.log(error);
+			res.end();
+		} else {
+			res.json(result);
+			res.end();
+		}	
+	});
+});
+
+app.get('/a210', function(req, res) {
+	var id = req.query.id;
+	var query = 'SELECT ToDoItem.Id AS ToDoItem, TIMESTAMPDIFF(SECOND, ToDoItem.CreationDate, ToDoItem.CompletionDate) as CompletionTime FROM ItemTag, ToDoItem WHERE ItemTag.ToDoId = ToDoItem.Id AND ItemTag.TagId=' + id + ' HAVING CompletionTime IS NOT NULL AND CompletionTime > 0 ORDER BY CompletionTime ASC LIMIT 10;
 	connection.query(query, function(error, result) {
 		if (error) {
 			console.log(error);

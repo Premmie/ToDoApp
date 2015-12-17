@@ -38,6 +38,10 @@ window.onload = function() {
     	event.preventDefault(); 
     	a9();
    	});
+   	$('#10-form').submit(function(event) { 
+    	event.preventDefault(); 
+    	a10();
+   	});
 	$('#11-form').submit(function(event) { 
     	event.preventDefault(); 
     	a11();
@@ -211,6 +215,23 @@ function a9() {
         
     }, 'json');
 }
+
+function a10() {
+	var $id = $('#10-input').val();
+	if ($id) {
+		$('#10').find('.content').empty();
+	 	$.get('/a210?id=' + $id, function(result) {
+			if (result.length > 0) {
+				$.each(result, function(index, object) {
+					$('#10').find('.content').append('<p>' + JSON.stringify(object) + '</p>');
+				});
+			} else {
+				$('#10').find('.content').append('<p>No items found.</p>');
+			}
+    	}, 'json');	
+	}
+}
+
 
 function a11() {
     $.get('/a211', function(result) {

@@ -303,6 +303,20 @@ app.get('/a29', function(req, res) {
 	});
 });
 
+app.get('/a210', function(req, res) {
+	var id = req.query.id;
+	var query = 'SELECT ToDoItem.Id AS ToDoItem, TIMESTAMPDIFF(SECOND, ToDoItem.CreationDate, ToDoItem.CompletionDate) as CompletionTime FROM ItemTag, ToDoItem WHERE ItemTag.ToDoId = ToDoItem.Id AND ItemTag.TagId=' + id + ' HAVING CompletionTime IS NOT NULL AND CompletionTime > 0 ORDER BY CompletionTime ASC LIMIT 10';
+	connection.query(query, function(error, result) {
+		if (error) {
+			console.log(error);
+			res.end();
+		} else {
+			res.json(result);
+			res.end();
+		}	
+	});
+});
+
 app.get('/a211', function(req, res) {
 	var query = 'SELECT Tag1.TagId as FirstTag, Tag2.TagId as SecondTag, COUNT(*) FROM ItemTag AS Tag1, ItemTag AS Tag2 WHERE Tag1.TagId <> Tag2.TagId AND Tag1.TagId < Tag2.TagId AND Tag1.ToDoId=Tag2.ToDoId GROUP BY Tag1.TagId, Tag2.TagId'
 	connection.query(query, function(error, result) {
