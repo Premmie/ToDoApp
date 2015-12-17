@@ -190,29 +190,55 @@ form select:hover {
 }
 
 #task-list {
-    display: table-row-group;
+    display: block;
     vertical-align: middle;
     margin-bottom: 2px;
 }
 
 .task {
-	background-color: whitesmoke;
-    display:table-row;
-    height: 48px;
-	padding: 8px;
+    display: block;
     vertical-align: inherit;
     width: 100%;
 }
 
-.task:hover:not(.selected) {
+.task-info {
+
+    vertical-align: inherit;
+    display: table-row;
+    height: 48px;
+    padding: 8px;
+    width: 100%;
+}
+
+.task-info:hover:not(.selected) {
     background-color: lightgray;
 }
 
 .task-select, .task-details {
+    background-color: whitesmoke;
     border-bottom: 1px solid white;
     display: table-cell;
     vertical-align: inherit;
     padding: 8px;
+}
+
+.tag.fun {
+    padding: 0;
+    color: transparent;
+    background-color: darkred;
+}
+
+.tag.work {
+    padding: 0;
+    color: transparent;
+    background-color: lightblue;
+}
+
+
+.sub-tasks {
+    width: 95%;
+    display: block;
+    vertical-align: inherit;
 }
 
 .task-select, .task-priority {
@@ -249,7 +275,7 @@ form select:hover {
     content: url(img/star.png);
 }
 
-.task.overdue .task-priority::after {
+.task-info.overdue .task-priority::after {
     content: url(img/clock.png);
 }
 
@@ -257,7 +283,6 @@ form select:hover {
     content: url(img/check.png);
     title: 'Task completed';
 }
-
 
 input[type="text"], input[type="date"] {
 	border:none;

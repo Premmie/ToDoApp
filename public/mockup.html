@@ -1,0 +1,100 @@
+<html><head>
+	<title>Do IT now</title>
+	<link href="css/mockup.css" rel="stylesheet" type="text/css">
+	<script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300" rel="stylesheet" type="text/css">
+</head>
+
+
+<body>
+<section class="side-menu">
+	<ul class="menu-bar">
+		<li class="menu-item title">
+			<a href="splash.html">D O L I S T</a>
+		</li>
+	</ul>
+	<aside id="menu">
+		<header>
+			<h1>Welcome</h1>
+		</header>
+		<a class="button" href="splash.html">Sign Out</a>
+		<section id="filter">
+			<p>Filter</p>
+			<p><select id="filter-select">
+				<option value="0">All</option>
+				<option value="1">Today</option>
+				<option value="2">Urgent</option>
+				<option value="3">Normal</option>
+			</select></p>
+		</section>
+		<section id="lists">
+			<p>Lists</p>
+			<ul>
+				<li>All</li>
+				<li>School</li>
+				<li>Work</li>
+				<li>Personal</li>
+			</ul>
+		</section>
+	</aside>
+</section>
+<section class="content">
+	<h2>Tasks</h2>
+	<section id="new">
+		<p>Create a task</p>
+		<form id="new-form" autocomplete="off">
+			<input id="new-descr" placeholder="Describe your task..." type="text">
+			<input id="new-duedate" placeholder="Due date" title="Select a due date" type="date">
+			<select id="new-priority" title="Select a priority">
+				<option value="0">Normal</option>
+				<option value="3">Urgent</option>
+			</select>
+			<button id="new-confirm" type="submit" form="new-form">Add</button>
+		</form>
+	</section>
+	<div style="display: none;" id="edit">
+		<p>Edit a task</p>
+		<form id="edit-form" autocomplete="off">
+			<input id="edit-descr" placeholder="Describe your task..." type="text">
+			<input id="edit-duedate" placeholder="Due date" type="date">
+			<select id="edit-priority" title="Change the priority">
+				<option value="0">Normal</option>
+				<option value="3">Urgent</option>
+			</select>
+			<button id="edit-confirm" type="submit" form="edit-form">Edit</button>
+		</form>
+	</div>
+	<section id="tasks">
+		<section class="tools">
+			<div><input value="false" class="select-all" title="Select all tasks" type="checkbox"></div>
+			<div><select id="action-select" title="Select an action">
+				<option value="0">Delete</option>
+				<option value="1">Done</option>
+			</select></div>
+			<div><button id="apply-confirm" type="button">Apply</button></div>
+			<div><select id="sort-select" title="Sort tasks">
+				<option value="0">By due date ascending</option>
+				<option value="1">By due date descending</option>
+				<option value="2">By priority ascending</option>
+				<option value="3">By priority descending</option>
+			</select></div>
+		</section>
+		<section id="task-list">
+			<div id="task4" class="task" priority="1" date="Fri Dec 05 2014" done="false" editing="false"><div class="task-info overdue"><div class="task-select"><input id="task-select4" type="checkbox"></div><div class="task-details task-priority"></div><div class="task-details task-note"><span title="Text information goes here.">Bring presents to the children</span></div><div class="task-details task-date"> Fri Dec 05 2014</div><div class="task-details tag work"><span title="Tag: Work">|</span></div></div>
+				<div class="sub-tasks">
+					<div id="task56" class="task" priority="3" date="Fri Dec 18 2015" done="false" editing="false"><div class="task-info"><div class="task-select"><input id="task-select56" type="checkbox"></div><div class="task-details task-priority"></div><div class="task-details task-note">Star Wars Marathon</div><div class="task-details task-date"> Fri Dec 18 2015</div><div class="task-details tag fun"><span title="Tag: Fun">|</span></div></div></div>
+					<div class="sub-tasks">
+						<div id="task58" class="task" priority="3" date="Fri Dec 18 2015" done="false" editing="false"><div class="task-info"><div class="task-select"><input id="task-select58" type="checkbox"></div><div class="task-details task-priority"></div><div class="task-details task-note">Star Wars Marathon</div><div class="task-details task-date"> Fri Dec 18 2015</div><div class="task-details tag work"><span title="Tag: Work">|</span></div></div></div>
+					</div>
+				<div id="task57" class="task" priority="3" date="Fri Dec 18 2015" done="false" editing="false"><div class="task-info"><div class="task-select"><input id="task-select57" type="checkbox"></div><div class="task-details task-priority"></div><div class="task-details task-note">Star Wars: The Force Awakens</div><div class="task-details task-date"> Fri Dec 18 2015</div><div class="task-details tag work"><span title="Tag: Work">|</span></div></div></div>
+			</div>
+			</div>
+			<div id="task55" class="task" priority="3" date="Fri Dec 18 2015" done="false" editing="false"><div class="task-info"><div class="task-select"><input id="task-select55" type="checkbox"></div><div class="task-details task-priority"></div><div class="task-details task-note">Star Wars Marathon</div><div class="task-details task-date"> Fri Dec 18 2015</div><div class="task-details tag work"><span title="Tag: Work">|</span></div></div></div>
+			<div id="task54" class="task" priority="1" date="Sun Dec 20 2015" done="false" editing="false"><div class="task-info"><div class="task-select"><input id="task-select54" type="checkbox"></div><div class="task-details task-priority"></div><div class="task-details task-note">School work</div><div class="task-details task-date"> Sun Dec 20 2015</div><div class="task-details tag work"><span title="Tag: Work">|</span></div></div></div></section>
+	</section>
+	<footer>
+		<p>Copyright</p>
+	</footer>
+</section>
+
+</body></html>
