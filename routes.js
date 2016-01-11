@@ -9,11 +9,6 @@ exports.addRoutes = function(app) {
     var user = 1;
     var listId = 2;
 
-    app.get('/', function(req, res) {
-        res.redirect('/splash.html');
-        res.end();
-    });
-
     app.get('/tasklist', function(req, res) {
         console.log('Returning: ' + JSON.stringify(list));
         res.json(list);

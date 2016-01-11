@@ -4,9 +4,9 @@ var url = require('url');
 var http = require('http');
 var bodyParser = require('body-parser');
 var app = express();
-var routes = require('routes.js');
-var dbRoutes = require('dbRoutes.js');
-var analyticsRoutes = require('analyticsRoutes.js');
+var routes = require('./routes.js');
+var dbRoutes = require('./dbRoutes.js');
+var analyticsRoutes = require('./analyticsRoutes.js');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -24,11 +24,16 @@ app.use(express.static('public'));
 
 connection.connect();
 
+app.get('/', function(req, res) {
+    res.redirect('/splash.html');
+    res.end();
+});
+
 // DATABASE COMMUNICATIONS FUNCTIONALITY
-dbRoutes.addRoutes(app);
+dbRoutes.addRoutes(app, connection);
 
 // DATABASE ANALYTICS FUNCTIONALITY
-analyticsRoutes.addRoutes(app);
+analyticsRoutes.addRoutes(app, connection);
 
 
 var server = app.listen(1010, function(error) {

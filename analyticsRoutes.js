@@ -2,7 +2,7 @@
  * Created by Luke on 11-1-2016.
  */
 
-exports.addRoutes = function(app) {
+exports.addRoutes = function(app, connection) {
     app.get('/a21', function(req, res) {
         var user = req.query.user;
         var query = 'SELECT ToDoList.* FROM ToDoList JOIN User ON(ToDoList.Owner=User.Id) WHERE User.id=' + user;

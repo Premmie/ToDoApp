@@ -2,7 +2,9 @@
  * Created by Luke on 11-1-2016.
  */
 
-exports.addRoutes = function(app) {
+exports.addRoutes = function(app, connection) {
+
+	var listId = 2;
 
     app.get('/tasklistdb', function(req, res) {
         connection.query('SELECT * FROM ToDoItem WHERE ToDoItem.ToDoListId = ' + listId, function(error, result) {
