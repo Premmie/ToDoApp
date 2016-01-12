@@ -1,0 +1,31 @@
+{
+  "name": "ToDoApp",
+  "version": "1.0.0",
+  "description": "App to track to-dos",
+  "main": "server.js",
+  "dependencies": {
+    "body-parser": "^1.10.0",
+    "express": "^4.13.3",
+    "mysql": "^2.10.0",
+    "express-json": "^1.0.0",
+    "ejs": "^2.3.4
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Premmie/ToDoApp"
+  },
+  "keywords": [
+    "ToDoApp"
+  ],
+  "author": "TI1 60",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Premmie/ToDoApp/issues"
+  },
+  "homepage": "https://github.com/Premmie/ToDoApp"
+}

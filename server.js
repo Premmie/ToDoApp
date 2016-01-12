@@ -3,11 +3,17 @@ var mysql = require('mysql');
 var url = require('url');
 var http = require('http');
 var bodyParser = require('body-parser');
+var ejs = require('ejs');
+var passport = require('passport');
+var strategy = require('passport-twitter').Strategy;
+
 var app = express();
 var routes = require('./routes.js');
 var dbRoutes = require('./dbRoutes.js');
 var analyticsRoutes = require('./analyticsRoutes.js');
 
+
+app.set('view engine', 'ejs');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
 	extended: true
@@ -28,6 +34,8 @@ app.get('/', function(req, res) {
     res.redirect('/splash.html');
     res.end();
 });
+
+app.get('/auth/twitter', passport.authenticate('twitter'));
 
 // DATABASE COMMUNICATIONS FUNCTIONALITY
 dbRoutes.addRoutes(app, connection);
