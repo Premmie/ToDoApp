@@ -20,7 +20,7 @@
                     <a href="">Support</a>
                 </li>
                 <li class="menu-item menu-actions">
-                	<a class="button" href="/auth/twitter">Twitter</a>
+                	<a class="button" href="todo.html">Twitter</a>
                     <a class="button" href="todo.html">Sign In</a>
                 </li>
             </ul>
