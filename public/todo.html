@@ -7,7 +7,7 @@
 		<script src="js/note.js"></script>
 		<link href="css/todo.css" rel="stylesheet" type="text/css">
 		<script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
-        <script src="http://code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
 		<link href='https://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
 	</head>
 	
@@ -20,10 +20,12 @@
                 </li>
             </ul>
 			<aside id="menu">
+				
 				<header>
 					<h1>Welcome</h1>
 				</header>
                 <a class="button" href="splash.html">Sign Out</a>
+                <a class="button" id="background-change">Change</a>
 				<section id="filter">
 					<p>Filter</p>
 					<p><select id="filter-select">

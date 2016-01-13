@@ -10,12 +10,12 @@ var Strategy = require('passport-twitter').Strategy;
 var routes = require('./routes.js');
 var dbRoutes = require('./dbRoutes.js');
 var analyticsRoutes = require('./analyticsRoutes.js');
-var cred = require('./credentials.js');
+var credentials = require('./credentials.js');
 
 passport.use(new Strategy({
-	consumerKey: cred.twitter.consumerKey,
-	consumerSecret: cred.twitter.consumerSecret,
-	callbackURL: cred.twitter.callbackURL
+	consumerKey: credentials.twitter.consumerKey,
+	consumerSecret: credentials.twitter.consumerSecret,
+	callbackURL: credentials.twitter.callbackURL
 	},
 	function(token, tokenSecret, profile, cb) {
 		return cb(null, profile);
@@ -23,11 +23,11 @@ passport.use(new Strategy({
 );
 
 passport.serializeUser(function(user, done) {
-  done(null, user);
+	done(null, user);
 });
 
 passport.deserializeUser(function(user, done) {
-  done(null, user);
+	done(null, user);
 });	
 
 var app = express();
@@ -37,7 +37,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
 	extended: true
 })); 
-app.use(session({ secret: 'keyboard cat' }));
+app.use(session({ secret: 'secret tunnel' }));
 app.use(passport.initialize());
 app.use(passport.session());
 

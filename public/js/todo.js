@@ -3,6 +3,11 @@ var list = {};
 window.onload = function() {
 	var $edit = $('#edit-form');
 	var $body = $('body');
+	if (!$.cookie('background')) {
+		$.cookie('background', 'normal', { expires: 7 } );
+	} else {
+		checkCookie();
+	}
     getTaskList();
     $('#edit').hide();
 	$('#new-form').submit(function(event) {
@@ -25,7 +30,23 @@ window.onload = function() {
         $(this).parent().addClass('selected');
 		loadEdit();
 	});
+	$('#background-change').click(function() {
+		if ($.cookie('background') == 'normal') {
+			$.cookie('background', 'changed', { expires: 7 } );
+		} else {
+			$.cookie('background', 'normal', { expires: 7 } );
+		}	
+		checkCookie();	
+	});
 };
+
+function checkCookie() {
+	if ($.cookie('background') == 'normal') {
+		$('.side-menu').css('background-color', 'darkslategrey');
+	} else {
+		$('.side-menu').css('background-color', 'slategrey');
+	}
+}
 
 function applyAction() {
 	if ($('#action-select').val() == 0) {
