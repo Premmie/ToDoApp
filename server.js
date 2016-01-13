@@ -1,4 +1,5 @@
 var express = require('express');
+var path = require('path');
 var mysql = require('mysql');
 var url = require('url');
 var http = require('http');
@@ -9,8 +10,8 @@ var session = require('express-session')
 var passport = require('passport');
 var Strategy = require('passport-twitter').Strategy;
 var credentials = require('./credentials.js');
-var routes = require('./routes.js');
-var database = require('./database.js');
+var routes = require('./routes/routes.js');
+var database = require('./routes/database.js');
 
 passport.use(new Strategy({
 		consumerKey: credentials.twitter.consumerKey,
@@ -44,13 +45,17 @@ var app = express();
 	app.use(logger('dev'));
 //});
 
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
+
+
 routes(app, passport);
 
 
 var connection = mysql.createConnection({
 	host: 'localhost',
 	user: 'root',
-	password: 'webdata',
+	password: 'Alexander12!',
 	database: 'todo'
 });
 
@@ -58,4 +63,4 @@ connection.connect();
 
 database(app, connection);
 
-app.listen(1010);
+app.listen(3000);

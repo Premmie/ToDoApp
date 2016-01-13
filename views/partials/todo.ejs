@@ -1,0 +1,79 @@
+<head>
+		<title>Do IT now</title>
+		<script src="javascripts/todo.js"></script>
+		<script src="javascripts/note.js"></script>
+		<link href="css/todo.css" rel="stylesheet" type="text/css">
+        <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+        <script src="http://code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+        		
+		<link href='https://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+	</head>
+	
+	
+	<body>
+		<section class="side-menu">
+            <ul class="menu-bar">
+                <li class="menu-item title">
+                    <a href="index.ejs">D O L I S T</a>
+                </li>
+            </ul>
+			<aside id="menu">
+				
+				<header>
+					<h1>Welcome</h1>
+				</header>
+                <a class="button" href="index.ejs">Sign Out</a>
+                <a class="button" id="background-change">Change</a>
+				<section id="filter">
+					<p>Filter</p>
+					<p><select id="filter-select">
+						<option value="0">All</option>
+						<option value="1">Today</option>
+						<option value="2">Urgent</option>
+						<option value="3">Normal</option>
+					</select></p>
+				</section>
+			</aside>
+		</section>
+		<section class="content">
+			<h2>Tasks</h2>
+			<section id="new">
+				<p>Create a task</p>
+				<form id="new-form" autocomplete="off">
+					<input id="new-descr" type="text" placeholder="Describe your task...">
+					<input id="new-duedate" type="date" placeholder="Due date" title="Select a due date">
+					<select id="new-priority" title="Select a priority">
+						<option value="0">Normal</option>
+						<option value="3">Urgent</option>
+					</select>
+					<button id="new-confirm" type="submit" form="new-form">Add</button>
+				</form>
+			</section>
+			<div id="edit">
+				<p>Edit a task</p>
+				<form id="edit-form"  autocomplete="off">
+					<input id="edit-descr" type="text" placeholder="Describe your task...">
+					<input id="edit-duedate" type="date" placeholder="Due date">
+					<select id="edit-priority" title="Change the priority">
+						<option value="0">Normal</option>
+						<option value="3">Urgent</option>
+					</select>
+					<button id="edit-confirm" type="submit" form="edit-form">Edit</button>
+				</form>
+			</div>
+			<section id="tasks">
+				<section class="tools">
+						<div><input type="checkbox" class="select-all" title="Select all tasks"></div>
+						<div><select id="action-select" title="Select an action">
+							<option value="0">Delete</option>
+							<option value="1">Done</option>
+						</select></div>
+						<div><button id="apply-confirm" type="button">Apply</button></div>
+                        <div><select id="sort-select" title="Sort tasks">
+							<option value="0">By due date ascending</option>
+							<option value="1">By due date descending</option>
+							<option value="2">By priority ascending</option>
+							<option value="3">By priority descending</option>
+						</select></div>
+				</section>
