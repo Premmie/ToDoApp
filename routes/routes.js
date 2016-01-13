@@ -17,8 +17,9 @@ module.exports = function(app, passport) {
 	});
 	
 	app.get('/+a+n+a+lytic+s+', function(req, res, next) {
-		res.sendFile('analytics.html', { root: __dirname + '/public' });
-	});
+		res.sendFile(path.join(__dirname, '../public', 'analytics.html'));
+
+    });
 
 	app.get('/auth/twitter', passport.authenticate('twitter'));
 
@@ -31,6 +32,8 @@ module.exports = function(app, passport) {
 		res.render('todo', { title: 'todo' });
 	});
 }
+
+
 
 
 /**
