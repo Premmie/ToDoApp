@@ -1,6 +1,37 @@
+module.exports = function(app, passport) {
+
+	app.get('/', function(req, res) {
+		res.sendFile('splash.html', { root: __dirname + '/public' });
+	});
+
+	app.get('/+s+pl+a+s+h+', function(req, res, next) {
+		res.redirect('/');
+	});
+
+	app.get('/+h+o+m+e+', function(req, res, next) {
+		res.redirect('/');
+	});
+	
+	app.get('/+a+n+a+lytic+s+', function(req, res, next) {
+		res.sendFile('analytics.html', { root: __dirname + '/public' });
+	});
+
+	app.get('/auth/twitter', passport.authenticate('twitter'));
+
+	app.get('/login', passport.authenticate('twitter', { failureRedirect: '/' }),
+		function(req, res) {
+			res.redirect('/user/' + req.user.id);	
+	});
+	
+	app.get('/user/:id', function(req, res) {
+		res.sendFile('todo.html', { root: __dirname + '/public' });
+	});
+}
+
+
 /**
  * Created by Luke on 11-1-2016.
- */
+ 
 
 exports.addRoutes = function(app) {
 
@@ -68,4 +99,9 @@ Task.prototype.getDate = function () {return this.date;};
 Task.prototype.setDate = function (date) {if (date != undefined) this.date = date;};
 Task.prototype.getPriority = function () {return this.priority;};
 Task.prototype.setPriority = function (priority) {if (priority != undefined) this.priority = priority;};
+*/
+
+
+
+
 

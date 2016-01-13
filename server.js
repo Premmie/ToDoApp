@@ -7,23 +7,22 @@ var ejs = require('ejs');
 var session = require('express-session')
 var passport = require('passport');
 var Strategy = require('passport-twitter').Strategy;
-var routes = require('./routes.js');
-var dbRoutes = require('./dbRoutes.js');
-var analyticsRoutes = require('./analyticsRoutes.js');
 var credentials = require('./credentials.js');
+var routes = require('./routes.js');
+var database = require('./database.js');
 
 passport.use(new Strategy({
-	consumerKey: credentials.twitter.consumerKey,
-	consumerSecret: credentials.twitter.consumerSecret,
-	callbackURL: credentials.twitter.callbackURL
+		consumerKey: credentials.twitter.consumerKey,
+		consumerSecret: credentials.twitter.consumerSecret,
+		callbackURL: credentials.twitter.callbackURL
 	},
-	function(token, tokenSecret, profile, cb) {
-		return cb(null, profile);
+	function(token, tokenSecret, profile, done) {
+		return done(null, profile);
 	})
 );
 
 passport.serializeUser(function(user, done) {
-	done(null, user);
+	done(null, user.id);
 });
 
 passport.deserializeUser(function(user, done) {
@@ -32,14 +31,19 @@ passport.deserializeUser(function(user, done) {
 
 var app = express();
 
-app.use(express.static('public'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-	extended: true
-})); 
-app.use(session({ secret: 'secret tunnel' }));
-app.use(passport.initialize());
-app.use(passport.session());
+//app.configure(function () {
+	app.use(express.static(__dirname + '/public'));
+	app.use(bodyParser.json());
+	app.use(bodyParser.urlencoded({
+		extended: true
+	})); 
+	app.use(session({ secret: 'secret tunnel' }));
+	app.use(passport.initialize());
+	app.use(passport.session());
+//});
+
+routes(app, passport);
+
 
 var connection = mysql.createConnection({
 	host: 'localhost',
@@ -50,27 +54,6 @@ var connection = mysql.createConnection({
 
 connection.connect();
 
-app.get('/', function(req, res) {
-    res.redirect('/splash.html');
-    res.end();
-});
+database(app, connection);
 
-app.get('/auth/twitter', passport.authenticate('twitter'));
-
-app.get('/login', passport.authenticate('twitter', { failureRedirect: '/' }),
-	function(req, res) {
-		console.log('login success');
-		res.redirect('/todo.html');	
-});
-
-// DATABASE COMMUNICATIONS FUNCTIONALITY
-dbRoutes.addRoutes(app, connection);
-
-// DATABASE ANALYTICS FUNCTIONALITY
-analyticsRoutes.addRoutes(app, connection);
-
-
-var server = app.listen(1010, function(error) {
-	var port = server.address().port;
-  	console.log("DoList app listening at http://127.0.0.1:" + port);
-});
+app.listen(1010);
