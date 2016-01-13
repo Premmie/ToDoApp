@@ -2,6 +2,7 @@ var express = require('express');
 var mysql = require('mysql');
 var url = require('url');
 var http = require('http');
+var logger = require('morgan');
 var bodyParser = require('body-parser');
 var ejs = require('ejs');
 var session = require('express-session')
@@ -40,6 +41,7 @@ var app = express();
 	app.use(session({ secret: 'secret tunnel' }));
 	app.use(passport.initialize());
 	app.use(passport.session());
+	app.use(logger('dev'));
 //});
 
 routes(app, passport);
