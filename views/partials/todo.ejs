@@ -21,7 +21,7 @@
 			<aside id="menu">
 				
 				<header>
-					<h1>Welcome, <%= user%> </h1>
+					<h1>Welcome, <%= typeof user!='undefined' ? user: '' %> </h1>
 				</header>
                 <a class="button" href="/splash">Sign Out</a>
                 <a class="button" id="background-change">Change</a>
