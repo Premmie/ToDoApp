@@ -33,29 +33,24 @@ passport.deserializeUser(function(user, done) {
 
 var app = express();
 
-//app.configure(function () {
-	app.use(logger('dev'));
-	app.use(express.static(__dirname + '/public'));
-	app.use(bodyParser.json());
-	app.use(bodyParser.urlencoded({
-		extended: true
-	})); 
-	app.use(session({ secret: 'secret tunnel' }));
-	app.use(passport.initialize());
-	app.use(passport.session());
-//});
-
+app.use(logger('dev'));
+app.use(express.static(__dirname + '/public'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+	extended: true
+})); 
+app.use(session({ secret: 'secret tunnel' }));
+app.use(passport.initialize());
+app.use(passport.session());
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-
 routes(app, passport);
-
 
 var connection = mysql.createConnection({
 	host: 'localhost',
 	user: 'root',
-	password: 'Alexander12!',
+	password: 'webdata', // 'Alexander12!',
 	database: 'todo'
 });
 

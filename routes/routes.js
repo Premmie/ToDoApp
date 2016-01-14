@@ -3,9 +3,7 @@ var path = require('path');
 module.exports = function(app, passport) {
 
 	app.get('/', function(req, res) {
-	//	res.sendFile(path.join(__dirname, '../public', 'splash.html'));
         res.render('splash', { title: 'splash' });
-
 	});
 
 	app.get('/+s+pl+a+s+h+', function(req, res, next) {
@@ -18,20 +16,13 @@ module.exports = function(app, passport) {
 	
 	app.get('/+a+n+a+lytic+s+', function(req, res, next) {
 		res.sendFile(path.join(__dirname, '../public', 'analytics.html'));
-
     });
 
 	app.get('/auth/twitter', passport.authenticate('twitter'));
 
-	app.get('/login', passport.authenticate('twitter', { failureRedirect: '/' }),
+	app.get('/profile', passport.authenticate('twitter', { failureRedirect: '/' }),
 		function(req, res) {
-            console/log("login");
-			res.redirect('/user/' + req.user.id);	
-	});
-	
-	app.get('/user/:id', function(req, res) {
-        console.log("/iser/:id");
-		res.sendFile(path.join(__dirname, '..public', 'todo.html'));
+            res.render('todo', { title : 'todo', user: req.user.displayName});
 	});
 
     app.get('/todo', function( req, res) {
