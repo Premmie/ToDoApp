@@ -25,12 +25,19 @@ module.exports = function(app, passport) {
 
 	app.get('/login', passport.authenticate('twitter', { failureRedirect: '/' }),
 		function(req, res) {
+            console/log("login");
 			res.redirect('/user/' + req.user.id);	
 	});
 	
 	app.get('/user/:id', function(req, res) {
-		res.render('todo', { title: 'todo' });
+        console.log("/iser/:id");
+		res.sendFile(path.join(__dirname, '..public', 'todo.html'));
 	});
+
+    app.get('/todo', function( req, res) {
+        console.log("render todo");
+        res.render('todo', { title : 'todo'});
+    });
 }
 
 

@@ -34,6 +34,7 @@ passport.deserializeUser(function(user, done) {
 var app = express();
 
 //app.configure(function () {
+	app.use(logger('dev'));
 	app.use(express.static(__dirname + '/public'));
 	app.use(bodyParser.json());
 	app.use(bodyParser.urlencoded({
@@ -42,7 +43,6 @@ var app = express();
 	app.use(session({ secret: 'secret tunnel' }));
 	app.use(passport.initialize());
 	app.use(passport.session());
-	app.use(logger('dev'));
 //});
 
 app.set('views', path.join(__dirname, 'views'));
